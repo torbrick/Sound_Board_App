@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/titleFragment">
+
+    <fragment
+        android:id="@+id/titleFragment"
+        android:name="com.example.soundboardapp.ui.main.TitleFragment"
+        android:label="fragment_title"
+        tools:layout="@layout/fragment_title" >
+        <action
+            android:id="@+id/action_titleFragment_to_soundBoard1_fragment"
+            app:destination="@id/soundBoard1_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/soundBoard1_fragment"
+        android:name="com.example.soundboardapp.SoundBoard1.SoundBoard1Fragment"
+        android:label="fragment_sound_board1"
+        tools:layout="@layout/fragment_sound_board1" />
+</navigation>
