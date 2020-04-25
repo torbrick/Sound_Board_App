@@ -29,6 +29,7 @@ class SoundBoard1FragmentViewModel(app: Application) : AndroidViewModel(app) {
 
 
 
+
     private var buttonSoundMP: MediaPlayer? = MediaPlayer.create(thisContext, parseSoundUri(buttonSoundDefault))
 
    // private var achievementSoundMP: MediaPlayer? = MediaPlayer.create(this.getApplication(), R.raw.achievementunlocked)
@@ -37,9 +38,10 @@ class SoundBoard1FragmentViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     fun playSound() {
-        buttonSoundMP?.start()
-        val toast = Toast.makeText(thisContext, "playSound", Toast.LENGTH_SHORT)
-        toast.show()
+//        buttonSoundMP?.start()
+//        val toast = Toast.makeText(thisContext, "playSound", Toast.LENGTH_SHORT)
+//        toast.show()
+    SingletonMediaPlayer.playSound(thisContext, buttonSoundDefault)
 
     }
 

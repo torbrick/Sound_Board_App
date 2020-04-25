@@ -7,7 +7,7 @@ import android.net.Uri
 import android.widget.Toast
 import com.example.soundboardapp.R
 
-object SingletonMediaPlayer: Application() {
+object SingletonMediaPlayer {
 
 
     private val buttonSoundDefault = R.raw.achievementunlocked
@@ -22,19 +22,28 @@ object SingletonMediaPlayer: Application() {
     private val buttonSound8 = R.raw.wowh
 
 
-    private val thisContext: android.content.Context = this.applicationContext
+    //private var thisContext: android.content.Context = applicationContext
+    //private val thisContext: android.content.Context = getApplication()
 
-    private var buttonSoundMP: MediaPlayer? = MediaPlayer.create(thisContext, parseSoundUri(buttonSoundDefault))
+    private lateinit var buttonSoundMP: MediaPlayer
 
-    fun playSound() {
+    fun playSound(thisContext: Context, rawResID: Int) {
+        fun parseSoundUri(rawResID: Int): android.net.Uri {
+            return Uri.parse("android.resource://" + thisContext.packageName + "/" + rawResID)
+        }
+
+        if(!(::buttonSoundMP.isInitialized)){
+            buttonSoundMP = MediaPlayer.create(thisContext, parseSoundUri(rawResID))
+        }
         buttonSoundMP?.start()
         val toast = Toast.makeText(thisContext, "playSound", Toast.LENGTH_SHORT)
         toast.show()
 
+
+
+
     }
 
 
-    private fun parseSoundUri(rawResID: Int):android.net.Uri{
-        return  Uri.parse("android.resource://" + thisContext.packageName + "/" + rawResID)
-    }
+
 }
