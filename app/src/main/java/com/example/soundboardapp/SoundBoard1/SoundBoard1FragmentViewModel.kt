@@ -37,55 +37,45 @@ class SoundBoard1FragmentViewModel(app: Application) : AndroidViewModel(app) {
         Log.i("SB1FragmentVM", "packagePath:" + thisContext.packageCodePath)
     }
 
-    fun playSound() {
-//        buttonSoundMP?.start()
-//        val toast = Toast.makeText(thisContext, "playSound", Toast.LENGTH_SHORT)
-//        toast.show()
-    SingletonMediaPlayer.playSound(thisContext, buttonSoundDefault)
-
-    }
-
-//    fun playButton1Sound() {
-//        val thisButtonMP: MediaPlayer? = buttonSoundMP.apply {
-//            setDataSource(thisContext, thisUri)
-//        }
+//    fun playSound() {
+////        buttonSoundMP?.start()
+////        val toast = Toast.makeText(thisContext, "playSound", Toast.LENGTH_SHORT)
+////        toast.show()
+//    SingletonMediaPlayer.playSound(thisContext, buttonSoundDefault)
+//
 //    }
 
-    fun playButton2Sound() {
-        buttonSoundMP?.apply {
-            reset()
-            setDataSource(thisContext, parseSoundUri(buttonSound2))
-            prepare()
-            start()
-        }
+    fun playButton1Sound() {
+        SingletonMediaPlayer.playSound(thisContext, buttonSound1)
+    }
 
-        val toast = Toast.makeText(thisContext, "playSound", Toast.LENGTH_SHORT)
-        toast.show()
+    fun playButton2Sound() {
+        SingletonMediaPlayer.playSound(thisContext, buttonSound2)
     }
 
     fun playButton3Sound() {
+        SingletonMediaPlayer.playSound(thisContext, buttonSound3)
     }
 
     fun playButton4Sound() {
+        SingletonMediaPlayer.playSound(thisContext, buttonSound4)
     }
 
     fun playButton5Sound() {
+        SingletonMediaPlayer.playSound(thisContext, buttonSound5)
     }
 
     fun playButton6Sound() {
+        SingletonMediaPlayer.playSound(thisContext, buttonSound6)
     }
 
     fun playButton7Sound() {
+        SingletonMediaPlayer.playSound(thisContext, buttonSound7)
     }
 
     fun playButton8Sound() {
+        SingletonMediaPlayer.playSound(thisContext, buttonSound8)
     }
-
-    fun playButton1Sound() {
-//        val toast = Toast.makeText(thisContext, "button1 pressed", Toast.LENGTH_SHORT)
-//        toast.show()
-    }
-
 
 
     private fun parseSoundUri(rawResID: Int):android.net.Uri{

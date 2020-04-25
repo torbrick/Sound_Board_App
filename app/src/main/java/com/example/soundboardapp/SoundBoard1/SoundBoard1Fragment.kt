@@ -34,7 +34,6 @@ class SoundBoard1Fragment : Fragment() {
 
         soundBoard1FragmentBinding.Sound1Button.setOnClickListener {
             soundBoard1ViewModel.playButton1Sound()
-            soundBoard1ViewModel.playSound()
         }
 
         soundBoard1FragmentBinding.Sound2Button.setOnClickListener {
