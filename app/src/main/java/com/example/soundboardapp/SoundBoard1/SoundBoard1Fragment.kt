@@ -26,13 +26,47 @@ class SoundBoard1Fragment : Fragment() {
     ): View? {
 
         val soundBoard1FragmentBinding: FragmentSoundBoard1Binding = DataBindingUtil.inflate(
-            inflater,R.layout.fragment_sound_board1, container,false)
+            inflater, R.layout.fragment_sound_board1, container, false
+        )
 
-       val soundBoard1ViewModel = ViewModelProviders.of(this).get(SoundBoard1FragmentViewModel::class.java)
+        val soundBoard1ViewModel =
+            ViewModelProviders.of(this).get(SoundBoard1FragmentViewModel::class.java)
 
         soundBoard1FragmentBinding.Sound1Button.setOnClickListener {
+            soundBoard1ViewModel.playButton1Sound()
             soundBoard1ViewModel.playSound()
         }
+
+        soundBoard1FragmentBinding.Sound2Button.setOnClickListener {
+            soundBoard1ViewModel.playButton2Sound()
+        }
+
+        soundBoard1FragmentBinding.Sound3Button.setOnClickListener {
+            soundBoard1ViewModel.playButton3Sound()
+        }
+
+        soundBoard1FragmentBinding.Sound4Button.setOnClickListener {
+            soundBoard1ViewModel.playButton4Sound()
+        }
+
+        soundBoard1FragmentBinding.Sound5Button.setOnClickListener {
+            soundBoard1ViewModel.playButton5Sound()
+        }
+
+        soundBoard1FragmentBinding.Sound6Button.setOnClickListener {
+            soundBoard1ViewModel.playButton6Sound()
+        }
+
+        soundBoard1FragmentBinding.Sound7Button.setOnClickListener {
+            soundBoard1ViewModel.playButton7Sound()
+        }
+
+        soundBoard1FragmentBinding.Sound8Button.setOnClickListener {
+            soundBoard1ViewModel.playButton8Sound()
+        }
+
+
+
 
 
         return soundBoard1FragmentBinding.root
@@ -42,7 +76,6 @@ class SoundBoard1Fragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(SoundBoard1FragmentViewModel::class.java)
         // TODO: Use the ViewModel
-
 
     }
 
