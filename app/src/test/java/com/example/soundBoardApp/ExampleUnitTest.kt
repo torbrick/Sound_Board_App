@@ -1,4 +1,4 @@
-package com.example.soundboardapp
+package com.example.soundBoardApp
 
 import org.junit.Test
 

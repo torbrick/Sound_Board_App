@@ -1,4 +1,4 @@
-package com.example.soundboardapp.SoundBoard1
+package com.example.soundBoardApp.soundBoard1
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -7,16 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import com.example.soundboardapp.R
-import com.example.soundboardapp.databinding.FragmentSoundBoard1Binding
+import com.example.soundBoardApp.R
+import com.example.soundBoardApp.databinding.FragmentSoundBoard1Binding
 
 
 class SoundBoard1Fragment : Fragment() {
 
-    companion object {
-        fun newInstance() =
-            SoundBoard1Fragment()
-    }
 
     private lateinit var viewModel: SoundBoard1FragmentViewModel
 
@@ -74,7 +70,6 @@ class SoundBoard1Fragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(SoundBoard1FragmentViewModel::class.java)
-        // TODO: Use the ViewModel
 
     }
 

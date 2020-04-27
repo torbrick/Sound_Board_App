@@ -1,4 +1,4 @@
-package com.example.soundboardapp.ui.main
+package com.example.soundBoardApp.ui.main
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -8,15 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
-import com.example.soundboardapp.R
-import com.example.soundboardapp.databinding.FragmentTitleBinding
+import com.example.soundBoardApp.R
+import com.example.soundBoardApp.databinding.FragmentTitleBinding
 
 
 class TitleFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = TitleFragment()
-    }
 
     private lateinit var viewModel: MainViewModel
 
@@ -40,7 +37,6 @@ class TitleFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-        // TODO: Use the ViewModel
     }
 
 }

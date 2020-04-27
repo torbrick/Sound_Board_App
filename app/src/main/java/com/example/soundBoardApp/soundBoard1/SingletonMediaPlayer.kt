@@ -1,11 +1,9 @@
-package com.example.soundboardapp.SoundBoard1
+package com.example.soundBoardApp.soundBoard1
 
-import android.app.Application
 import android.content.Context
 import android.media.MediaPlayer
 import android.net.Uri
 import android.widget.Toast
-import com.example.soundboardapp.R
 
 object SingletonMediaPlayer {
 
@@ -13,15 +11,15 @@ object SingletonMediaPlayer {
     private lateinit var buttonSoundMP: MediaPlayer
 
     fun playSound(thisContext: Context, rawResID: Int) {
-        fun parseSoundUri(rawResID: Int): android.net.Uri {
+        fun parseSoundUri(rawResID: Int): Uri {
             return Uri.parse("android.resource://" + thisContext.packageName + "/" + rawResID)
         }
 
-        if(!(::buttonSoundMP.isInitialized)){
+        if (!(::buttonSoundMP.isInitialized)) {
             buttonSoundMP = MediaPlayer.create(thisContext, parseSoundUri(rawResID))
             buttonSoundMP.start()
-        }else{
-            buttonSoundMP?.apply {
+        } else {
+            buttonSoundMP.apply {
                 reset()
                 setDataSource(thisContext, parseSoundUri(rawResID))
                 prepare()
@@ -30,14 +28,8 @@ object SingletonMediaPlayer {
         }
 
 
-        val toast = Toast.makeText(thisContext, "playSound", Toast.LENGTH_SHORT)
-        toast.show()
 
-
-
+        Toast.makeText(thisContext, "playsound", Toast.LENGTH_SHORT).show()
 
     }
-
-
-
 }

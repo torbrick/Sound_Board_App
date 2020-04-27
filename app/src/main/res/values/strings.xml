@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Sound Board App</string>
+    <string name="soundButton1">Sound1</string>
+    <string name="soundButton2">Sound2</string>
+    <string name="soundButton3">Sound3</string>
+    <string name="SoundButton4">Sound4</string>
+    <string name="SoundButton5">Sound5</string>
+    <string name="SoundButton6">Sound6</string>
+    <string name="SoundButton7">Sound7</string>
+    <string name="SoundButton8">Sound8</string>
+    <string name="mainfragmentText">MainFragment</string>
+    <string name="board1Text">Board1</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.example.soundboardapp.ui.main
+package com.example.soundBoardApp.ui.main
 
 import androidx.lifecycle.ViewModel
 
