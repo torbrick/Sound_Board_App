@@ -27,9 +27,5 @@ object SingletonMediaPlayer {
             }
         }
 
-
-
-        Toast.makeText(thisContext, "playsound", Toast.LENGTH_SHORT).show()
-
     }
 }

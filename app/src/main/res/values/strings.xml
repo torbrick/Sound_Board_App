@@ -10,4 +10,5 @@
     <string name="SoundButton8">Sound8</string>
     <string name="mainfragmentText">MainFragment</string>
     <string name="board1Text">Board1</string>
+    <string name="board1ButtonImageDescription">Owen Wilson Wow Face</string>
 </resources>

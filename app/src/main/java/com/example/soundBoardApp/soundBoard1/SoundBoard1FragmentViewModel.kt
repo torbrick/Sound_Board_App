@@ -5,8 +5,11 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import com.example.soundBoardApp.R
 
+private const val TAG = "SB1FragmentVM"
 
 class SoundBoard1FragmentViewModel(app: Application) : AndroidViewModel(app) {
+
+
 
     private val thisContext: android.content.Context = this.getApplication()
 
@@ -21,7 +24,9 @@ class SoundBoard1FragmentViewModel(app: Application) : AndroidViewModel(app) {
     private val buttonSound8 = R.raw.wowh
 
     init {
-        Log.i("SB1FragmentVM", "packagePath:" + thisContext.packageCodePath)
+
+        Log.i(TAG, "packagePath:" + thisContext.packageCodePath)
+
     }
 
     fun playButton1Sound() {
@@ -55,5 +60,7 @@ class SoundBoard1FragmentViewModel(app: Application) : AndroidViewModel(app) {
     fun playButton8Sound() {
         SingletonMediaPlayer.playSound(thisContext, buttonSound8)
     }
+
+
 
 }
