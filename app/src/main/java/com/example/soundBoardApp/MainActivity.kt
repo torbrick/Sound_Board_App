@@ -3,6 +3,10 @@ package com.example.soundBoardApp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
+
+/**
+ * This main activity is just a container for fragments
+ */
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -12,4 +16,6 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
+
 }

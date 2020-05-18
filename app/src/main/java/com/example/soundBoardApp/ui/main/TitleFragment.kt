@@ -31,6 +31,10 @@ class TitleFragment : Fragment() {
             findNavController().navigate(R.id.action_titleFragment_to_soundBoard1_fragment)
         }
 
+        binding.board2Button.setOnClickListener {
+            findNavController().navigate(R.id.action_titleFragment_to_soundBoard2Fragment)
+        }
+
         return binding.root
     }
 

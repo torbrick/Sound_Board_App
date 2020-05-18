@@ -13,10 +13,17 @@
         <action
             android:id="@+id/action_titleFragment_to_soundBoard1_fragment"
             app:destination="@id/soundBoard1_fragment" />
+        <action
+            android:id="@+id/action_titleFragment_to_soundBoard2Fragment"
+            app:destination="@id/soundBoard2Fragment" />
     </fragment>
     <fragment
         android:id="@+id/soundBoard1_fragment"
         android:name="com.example.soundBoardApp.soundBoard1.SoundBoard1Fragment"
         android:label="fragment_sound_board1"
         tools:layout="@layout/fragment_sound_board1" />
+    <fragment
+        android:id="@+id/soundBoard2Fragment"
+        android:name="com.example.soundboardapp.SoundBoard2Fragment"
+        android:label="SoundBoard2Fragment" />
 </navigation>

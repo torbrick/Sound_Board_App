@@ -14,7 +14,7 @@ import com.example.soundBoardApp.databinding.FragmentSoundBoard1Binding
 class SoundBoard1Fragment : Fragment() {
 
 
-    private lateinit var viewModel: SoundBoard1FragmentViewModel
+    //private lateinit var viewModel: SoundBoard1FragmentViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,7 +27,7 @@ class SoundBoard1Fragment : Fragment() {
 
         val soundBoard1ViewModel =
             ViewModelProviders.of(this).get(SoundBoard1FragmentViewModel::class.java)
-
+        //TODO: use binding to call these button clicks from layout
         soundBoard1FragmentBinding.Sound1Button.setOnClickListener {
             soundBoard1ViewModel.playButton1Sound()
         }
@@ -67,10 +67,10 @@ class SoundBoard1Fragment : Fragment() {
         return soundBoard1FragmentBinding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(SoundBoard1FragmentViewModel::class.java)
-
-    }
+//    override fun onActivityCreated(savedInstanceState: Bundle?) {
+//        super.onActivityCreated(savedInstanceState)
+//        viewModel = ViewModelProviders.of(this).get(SoundBoard1FragmentViewModel::class.java)
+//
+//    }
 
 }

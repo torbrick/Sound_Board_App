@@ -11,4 +11,6 @@
     <string name="mainfragmentText">MainFragment</string>
     <string name="board1Text">Board1</string>
     <string name="board1ButtonImageDescription">Owen Wilson Wow Face</string>
+    <string name="barking_dog">Barking Dog</string>
+    <string name="sound_board_2">Sound Board 2</string>
 </resources>

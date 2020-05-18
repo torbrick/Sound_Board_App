@@ -1,19 +1,23 @@
 package com.example.soundBoardApp.soundBoard1
 
 import android.app.Application
+import android.content.res.AssetFileDescriptor
+import android.content.res.AssetManager
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import com.example.soundBoardApp.R
+import com.example.soundBoardApp.SingletonMediaPlayer
+import java.io.IOException
+
 
 private const val TAG = "SB1FragmentVM"
 
 class SoundBoard1FragmentViewModel(app: Application) : AndroidViewModel(app) {
 
 
-
     private val thisContext: android.content.Context = this.getApplication()
 
-//    private val buttonSoundDefault = R.raw.achievementunlocked
+    //    private val buttonSoundDefault = R.raw.achievementunlocked
     private val buttonSound1 = R.raw.wowa
     private val buttonSound2 = R.raw.wowb
     private val buttonSound3 = R.raw.wowc
@@ -23,11 +27,11 @@ class SoundBoard1FragmentViewModel(app: Application) : AndroidViewModel(app) {
     private val buttonSound7 = R.raw.wowg
     private val buttonSound8 = R.raw.wowh
 
+
     init {
+            }
 
-        Log.i(TAG, "packagePath:" + thisContext.packageCodePath)
 
-    }
 
     fun playButton1Sound() {
         SingletonMediaPlayer.playSound(thisContext, buttonSound1)
@@ -60,7 +64,6 @@ class SoundBoard1FragmentViewModel(app: Application) : AndroidViewModel(app) {
     fun playButton8Sound() {
         SingletonMediaPlayer.playSound(thisContext, buttonSound8)
     }
-
 
 
 }
