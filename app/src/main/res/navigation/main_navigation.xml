@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/titleFragment"
-        android:name="com.example.soundBoardApp.ui.main.TitleFragment"
+        android:name="com.example.soundBoardApp.ui.main.MainFragment"
         android:label="fragment_title"
-        tools:layout="@layout/fragment_title" >
+        tools:layout="@layout/fragment_main" >
         <action
             android:id="@+id/action_titleFragment_to_soundBoard1_fragment"
             app:destination="@id/soundBoard1_fragment" />
