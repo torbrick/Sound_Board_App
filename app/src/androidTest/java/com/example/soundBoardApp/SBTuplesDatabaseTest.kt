@@ -59,7 +59,7 @@ class SBTuplesDatabaseTest {
 //            sbTuplesDao.insert(tuple)
 //            val tupleList = sbTuplesDao.getAllTuples()
 //            for (tuple in tupleList) {
-//                //TODO: implement actual tests
+//                //TODO: implement test the opens all of the entries in the database, plays their sounds, assigns their icons to buttons
 //                Assert.assertNotNull(tuple)
 //            }
         }

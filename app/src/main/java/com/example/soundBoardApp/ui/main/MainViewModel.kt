@@ -5,7 +5,9 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import com.example.soundBoardApp.database.SBTuple
 import com.example.soundBoardApp.database.SBTuplesDatabaseDao
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 private const val TAG = "MainViewModel"
@@ -14,6 +16,7 @@ class MainViewModel(
     val database: SBTuplesDatabaseDao,
     app: Application) : AndroidViewModel(app) {
     private val thisContext: android.content.Context = this.getApplication()
+    val uiScope = CoroutineScope(Dispatchers.Main)
 
     init {
         parseStockTuples()
@@ -29,7 +32,10 @@ class MainViewModel(
             Log.i(TAG, "assetItem:$folder")
             val assetsInFolder = assetManager.list("SBtuples/$folder")
                 ?: throw IllegalArgumentException("error opening folder SBtuples/$folder")
-            parseTupleFolderToDao(assetsInFolder, folder)
+            //TODO: figure out callback errors for Coroutines
+            uiScope.launch {
+                insert(parseTupleFolderToDao(assetsInFolder, folder))
+            }
         }
     }
 

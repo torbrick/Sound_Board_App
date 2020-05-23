@@ -13,4 +13,13 @@
     <string name="board1ButtonImageDescription">Owen Wilson Wow Face</string>
     <string name="barking_dog">Barking Dog</string>
     <string name="sound_board_2">Sound Board 2</string>
+    <string name="sound_7">Sound 7</string>
+    <string name="sound_10">Sound 10</string>
+    <string name="sound_3">Sound 3</string>
+    <string name="sound_2">Sound 2</string>
+    <string name="sound_1">Sound 1</string>
+    <string name="sound_5">Sound 5</string>
+    <string name="sound_8">Sound 8</string>
+    <string name="sound_4">Sound 4</string>
+    <string name="sound_9">Sound 9</string>
 </resources>

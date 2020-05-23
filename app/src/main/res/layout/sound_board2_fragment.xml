@@ -12,15 +12,124 @@
         android:layout_height="match_parent">
 
         <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat ="@drawable/ic_dogbarkicon1"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/soundButton3"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:contentDescription="@string/sound_3"
+            app:layout_constraintBottom_toTopOf="@+id/soundButton5"
+            app:layout_constraintEnd_toStartOf="@+id/soundButton4"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/soundButton1"
+            app:srcCompat="@drawable/ic_launcher_background" />
+
+        <ImageButton
+            android:id="@+id/soundButton1"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:contentDescription="@string/sound_1"
+            app:layout_constraintBottom_toTopOf="@+id/soundButton3"
+            app:layout_constraintEnd_toStartOf="@+id/soundButton2"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="@string/barking_dog" />
+            app:srcCompat="@drawable/ic_launcher_background" />
+
+        <ImageButton
+            android:id="@+id/soundButton2"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:contentDescription="@string/sound_2"
+            app:layout_constraintBottom_toTopOf="@+id/soundButton4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/soundButton1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_launcher_background" />
+
+        <ImageButton
+            android:id="@+id/soundButton4"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:contentDescription="@string/sound_4"
+            app:layout_constraintBottom_toTopOf="@+id/soundButton6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/soundButton3"
+            app:layout_constraintTop_toBottomOf="@+id/soundButton2"
+            app:srcCompat="@drawable/ic_launcher_background" />
+
+        <ImageButton
+            android:id="@+id/soundButton5"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:contentDescription="@string/sound_5"
+            app:layout_constraintBottom_toTopOf="@+id/soundButton7"
+            app:layout_constraintEnd_toStartOf="@+id/soundButton6"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/soundButton3"
+            app:srcCompat="@drawable/ic_launcher_background" />
+
+        <ImageButton
+            android:id="@+id/soundButton6"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:contentDescription="@string/SoundButton6"
+            app:layout_constraintBottom_toTopOf="@+id/soundButton8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/soundButton5"
+            app:layout_constraintTop_toBottomOf="@+id/soundButton4"
+            app:srcCompat="@drawable/ic_launcher_background" />
+
+        <ImageButton
+            android:id="@+id/soundButton8"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:contentDescription="@string/sound_8"
+            app:layout_constraintBottom_toTopOf="@+id/soundButton10"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/soundButton7"
+            app:layout_constraintTop_toBottomOf="@+id/soundButton6"
+            app:srcCompat="@drawable/ic_launcher_background" />
+
+        <ImageButton
+            android:id="@+id/soundButton7"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:contentDescription="@string/sound_7"
+            app:layout_constraintBottom_toTopOf="@+id/soundButton9"
+            app:layout_constraintEnd_toStartOf="@+id/soundButton8"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/soundButton5"
+            app:srcCompat="@drawable/ic_launcher_background" />
+
+        <ImageButton
+            android:id="@+id/soundButton9"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:contentDescription="@string/sound_9"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/soundButton10"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/soundButton7"
+            app:srcCompat="@drawable/ic_launcher_background" />
+
+        <ImageButton
+            android:id="@+id/soundButton10"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:contentDescription="@string/sound_10"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/soundButton9"
+            app:layout_constraintTop_toBottomOf="@+id/soundButton8"
+            app:srcCompat="@drawable/ic_launcher_background" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -27,6 +27,7 @@ class SoundBoard2Fragment : Fragment() {
             DataBindingUtil.inflate(inflater, R.layout.sound_board2_fragment, container, false)
 
 
+        //TODO: bind the dog sound/icon to button for testing
 
         return soundBoard2FragmentBinding.root
     }
