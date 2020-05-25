@@ -24,6 +24,6 @@
         tools:layout="@layout/fragment_sound_board1" />
     <fragment
         android:id="@+id/soundBoard2Fragment"
-        android:name="com.example.soundboardapp.SoundBoard2Fragment"
+        android:name="com.example.soundBoardApp.soundBoard2.SoundBoard2Fragment"
         android:label="SoundBoard2Fragment" />
 </navigation>

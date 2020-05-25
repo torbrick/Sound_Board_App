@@ -1,4 +1,4 @@
-package com.example.soundboardapp
+package com.example.soundBoardApp.soundBoard2
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.example.soundBoardApp.R
+import com.example.soundBoardApp.database.SBTuplesDatabase
 import com.example.soundBoardApp.databinding.SoundBoard2FragmentBinding
 
 
@@ -17,7 +18,6 @@ class SoundBoard2Fragment : Fragment() {
         fun newInstance() = SoundBoard2Fragment()
     }
 
-    private lateinit var viewModel: SoundBoard2ViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,16 +26,25 @@ class SoundBoard2Fragment : Fragment() {
         val soundBoard2FragmentBinding: SoundBoard2FragmentBinding =
             DataBindingUtil.inflate(inflater, R.layout.sound_board2_fragment, container, false)
 
+        val application = requireNotNull(this.activity).application
+
+        val dataSource = SBTuplesDatabase.getInstance(application).sBTuplesDatabaseDao
+
+        val viewModelFactory = SoundBoard2ViewModelFactory(dataSource, application)
+        val soundBoard2ViewModel = ViewModelProviders.of(this, viewModelFactory).get(SoundBoard2ViewModel::class.java)
 
         //TODO: bind the dog sound/icon to button for testing
+        soundBoard2FragmentBinding.soundButton1.setImageDrawable(soundBoard2ViewModel.getDrawable())
+
+
 
         return soundBoard2FragmentBinding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(SoundBoard2ViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
+//    override fun onActivityCreated(savedInstanceState: Bundle?) {
+//        super.onActivityCreated(savedInstanceState)
+//        viewModel = ViewModelProviders.of(this).get(SoundBoard2ViewModel::class.java)
+//        // TODO: Use the ViewModel
+//    }
 
 }

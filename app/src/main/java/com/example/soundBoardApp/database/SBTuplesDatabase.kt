@@ -26,7 +26,7 @@ import androidx.room.RoomDatabase
 @Database(entities = [SBTuple::class], version = 1, exportSchema = false)
 abstract class SBTuplesDatabase : RoomDatabase() {
     //connect database to DAO
-    abstract val sbTuplesDatabaseDAO: SBTuplesDatabaseDao
+    abstract val sBTuplesDatabaseDao: SBTuplesDatabaseDao
     /**
      * Define a companion object, this allows us to add functions on the SleepDatabase class.
      *

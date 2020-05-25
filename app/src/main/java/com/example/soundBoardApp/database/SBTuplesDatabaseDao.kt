@@ -19,4 +19,6 @@ interface SBTuplesDatabaseDao {
      */
     @Query("SELECT * FROM SoundBoard_Image_Sound_Tuples_Table ORDER BY tupleID ASC")
     fun getAllTuples(): List<SBTuple>
+
+
 }

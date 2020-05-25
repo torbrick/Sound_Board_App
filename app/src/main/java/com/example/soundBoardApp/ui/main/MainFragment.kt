@@ -28,7 +28,7 @@ class MainFragment : Fragment() {
 
         val application = requireNotNull(this.activity).application
 
-        val dataSource = SBTuplesDatabase.getInstance(application).sbTuplesDatabaseDAO
+        val dataSource = SBTuplesDatabase.getInstance(application).sBTuplesDatabaseDao
 
         val viewModelFactory = MainViewModelFactory(dataSource,application)
 

@@ -1,15 +1,12 @@
 package com.example.soundBoardApp
 
 import android.content.Context
-import android.content.res.AssetFileDescriptor
 import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.example.soundBoardApp.database.SBTuple
 import com.example.soundBoardApp.database.SBTuplesDatabase
 import com.example.soundBoardApp.database.SBTuplesDatabaseDao
 import org.junit.After
-import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -39,7 +36,7 @@ class SBTuplesDatabaseTest {
                 // Allowing main thread queries, just for testing.
                 .allowMainThreadQueries()
                 .build()
-            sbTuplesDao = db.sbTuplesDatabaseDAO
+            sbTuplesDao = db.sBTuplesDatabaseDao
         }
 
         @After
