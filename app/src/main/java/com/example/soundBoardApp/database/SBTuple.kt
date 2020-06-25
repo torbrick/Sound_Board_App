@@ -1,9 +1,12 @@
 package com.example.soundBoardApp.database
 
-import android.content.res.AssetFileDescriptor
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+
+/**
+ * each tuple has a sound and an icon
+ */
 
 @Entity(tableName = "SoundBoard_Image_Sound_Tuples_Table")
 data class SBTuple(

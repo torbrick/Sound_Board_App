@@ -5,6 +5,9 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 
+/**
+ * data base access object for the SBTuple class
+ */
 
 @Dao
 interface SBTuplesDatabaseDao {

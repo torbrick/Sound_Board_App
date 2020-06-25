@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import com.example.soundBoardApp.R
-import com.example.soundBoardApp.database.SBTuplesDatabase
+import com.example.soundBoardApp.database.SBDatabase
 import com.example.soundBoardApp.databinding.FragmentMainBinding
 
 
@@ -28,7 +28,7 @@ class MainFragment : Fragment() {
 
         val application = requireNotNull(this.activity).application
 
-        val dataSource = SBTuplesDatabase.getInstance(application).sBTuplesDatabaseDao
+        val dataSource = SBDatabase.getInstance(application).sBTuplesDatabaseDao
 
         val viewModelFactory = MainViewModelFactory(dataSource,application)
 

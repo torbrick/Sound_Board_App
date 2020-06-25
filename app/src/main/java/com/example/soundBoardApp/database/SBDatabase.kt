@@ -16,15 +16,18 @@
 //I copy pasted most of this class from a google tutorial
 package com.example.soundBoardApp.database
 
-import android.R
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.sqlite.db.SupportSQLiteDatabase
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 
+const val DATABASE_NAME = "soundBoard_tuples_database"
 
 @Database(entities = [SBTuple::class], version = 1, exportSchema = false)
-abstract class SBTuplesDatabase : RoomDatabase() {
+abstract class SBDatabase : RoomDatabase() {
     //connect database to DAO
     abstract val sBTuplesDatabaseDao: SBTuplesDatabaseDao
     /**
@@ -44,7 +47,7 @@ abstract class SBTuplesDatabase : RoomDatabase() {
          *  thread to shared data are visible to other threads.
          */
         @Volatile
-        private var INSTANCE: SBTuplesDatabase? = null
+        private var INSTANCE: SBDatabase? = null
 
         /**
          * Helper function to get the database.
@@ -63,7 +66,7 @@ abstract class SBTuplesDatabase : RoomDatabase() {
          *
          * @param context The application context Singleton, used to get access to the filesystem.
          */
-        fun getInstance(context: Context): SBTuplesDatabase {
+        fun getInstance(context: Context): SBDatabase {
             // Multiple threads can ask for the database at the same time, ensure we only initialize
             // it once by using synchronized. Only one thread may enter a synchronized block at a
             // time.
@@ -73,23 +76,36 @@ abstract class SBTuplesDatabase : RoomDatabase() {
                 var instance = INSTANCE
                 // If instance is `null` make a new database instance.
                 if (instance == null) {
-                    instance = Room.databaseBuilder(
-                        context.applicationContext,
-                        SBTuplesDatabase::class.java,
-                        "soundBoard_tuples_database"
-                    )
-                        // Wipes and rebuilds instead of migrating if no Migration object.
-                        // Migration is not part of this lesson. You can learn more about
-                        // migration with Room in this blog post:
-                        // https://medium.com/androiddevelopers/understanding-migrations-with-room-f01e04b07929
-                        .fallbackToDestructiveMigration()
-                        .build()
+
+                    instance = buildDatabase(context)
                     // Assign INSTANCE to the newly created database.
                     INSTANCE = instance
                 }
                 // Return instance; smart cast to be non-null.
                 return instance
             }
+        }
+
+        private fun buildDatabase(context: Context): SBDatabase {
+            return Room.databaseBuilder(
+                context.applicationContext,
+                SBDatabase::class.java,
+                DATABASE_NAME
+            )
+                .addCallback(object : Callback() {
+                    //this is the Call Back that gets called on creation
+                    override fun onCreate(db: SupportSQLiteDatabase) {
+                        super.onCreate(db)
+                        val workRequest = OneTimeWorkRequestBuilder<SBDatabaseWorker>().build()
+                        WorkManager.getInstance(context).enqueue(workRequest)
+                    }
+                })
+                // Wipes and rebuilds instead of migrating if no Migration object.
+                // Migration is not part of this lesson. You can learn more about
+                // migration with Room in this blog post:
+                // https://medium.com/androiddevelopers/understanding-migrations-with-room-f01e04b07929
+                .fallbackToDestructiveMigration()
+                .build()
         }
     }
 }

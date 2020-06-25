@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.example.soundBoardApp.database.SBTuplesDatabase
+import com.example.soundBoardApp.database.SBDatabase
 import com.example.soundBoardApp.database.SBTuplesDatabaseDao
 import org.junit.After
 import org.junit.Before
@@ -17,10 +17,10 @@ class SBTuplesDatabaseTest {
 
 
     @RunWith(AndroidJUnit4::class)
-    class SBTuplesDatabaseTest {
+    class SBDatabaseTest {
 
         private lateinit var sbTuplesDao: SBTuplesDatabaseDao
-        private lateinit var db: SBTuplesDatabase
+        private lateinit var db: SBDatabase
         //https://stackoverflow.com/questions/8605611/get-context-of-test-project-in-android-junit-test-case
         lateinit var instrumentationContext: Context
         @Before
@@ -32,7 +32,7 @@ class SBTuplesDatabaseTest {
             val context = InstrumentationRegistry.getInstrumentation().targetContext
             // Using an in-memory database because the information stored here disappears when the
             // process is killed.
-            db = Room.inMemoryDatabaseBuilder(context, SBTuplesDatabase::class.java)
+            db = Room.inMemoryDatabaseBuilder(context, SBDatabase::class.java)
                 // Allowing main thread queries, just for testing.
                 .allowMainThreadQueries()
                 .build()

@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.example.soundBoardApp.R
-import com.example.soundBoardApp.database.SBTuplesDatabase
+import com.example.soundBoardApp.database.SBDatabase
 import com.example.soundBoardApp.databinding.SoundBoard2FragmentBinding
 
 
@@ -28,7 +28,7 @@ class SoundBoard2Fragment : Fragment() {
 
         val application = requireNotNull(this.activity).application
 
-        val dataSource = SBTuplesDatabase.getInstance(application).sBTuplesDatabaseDao
+        val dataSource = SBDatabase.getInstance(application).sBTuplesDatabaseDao
 
         val viewModelFactory = SoundBoard2ViewModelFactory(dataSource, application)
         val soundBoard2ViewModel = ViewModelProviders.of(this, viewModelFactory).get(SoundBoard2ViewModel::class.java)
