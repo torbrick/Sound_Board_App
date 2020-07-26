@@ -26,7 +26,7 @@ import androidx.work.WorkManager
 
 const val DATABASE_NAME = "soundBoard_tuples_database"
 
-@Database(entities = [SBTuple::class], version = 1, exportSchema = false)
+@Database(entities = [SBDatabaseTuple::class], version = 1, exportSchema = false)
 abstract class SBDatabase : RoomDatabase() {
     //connect database to DAO
     abstract val sBTuplesDatabaseDao: SBTuplesDatabaseDao

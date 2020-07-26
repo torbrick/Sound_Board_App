@@ -9,7 +9,6 @@ import kotlinx.coroutines.coroutineScope
 import java.lang.Exception
 
 private const val TAG = "SBDatabaseWorker"
-private const val TUPLES_FOLDER_NAME = "SBtuples" //name of the folder that holds tuples folders
 
 /**
  * Worker to seed database on creation
@@ -59,15 +58,15 @@ class SBDatabaseWorker(
     private fun parseTupleFolderToDao(
         assetManager: AssetManager,
         folder: String?
-    ): SBTuple {
-        var hasSoundMP3 = false
-        var hasIconXML = false
-        lateinit var soundMP3FilePath: String
-        lateinit var iconXMLFilePath: String
-        val tuplesFolderList = assetManager.list("SBtuples/$folder")
-            ?: throw IllegalArgumentException("error opening folder SBtuples/$folder")
+    ): SBDatabaseTuple {
+        var hasSound = false
+        var hasIcon = false
+        lateinit var soundFilePath: String
+        lateinit var iconFilePath: String
+        val tuplesFolderList = assetManager.list("$TUPLES_FOLDER_NAME/$folder") //TODO: replace hardcode with constant
+            ?: throw IllegalArgumentException("error opening folder $TUPLES_FOLDER_NAME/$folder")
         for (file in tuplesFolderList) { //parse each file
-            val tupleFileName = "SBtuples/$folder/$file"
+            val tupleFileName = "$TUPLES_FOLDER_NAME/$folder/$file"
             Log.i(TAG, "asset in file: $file")
 
             Log.i(TAG, "FDtoAdd: $tupleFileName")
@@ -79,23 +78,23 @@ class SBDatabaseWorker(
                 fileName.length
             )
             when (assetExtension) {
-                ".mp3" -> {
-                    if (hasSoundMP3) throw IllegalArgumentException("more than one sound MP3 file in $folder")
-                    hasSoundMP3 = true
-                    soundMP3FilePath = tupleFileName
+                SOUND_FILE_EXTENSION -> {
+                    if (hasSound) throw IllegalArgumentException("more than one sound MP3 file in $folder")
+                    hasSound = true
+                    soundFilePath = tupleFileName
                 }
-                ".xml" -> {
-                    if (hasIconXML) throw IllegalArgumentException("more than one icon XML file in $folder")
-                    hasIconXML = true
-                    iconXMLFilePath = tupleFileName
+                IMAGE_FILE_EXTENSION -> {
+                    if (hasIcon) throw IllegalArgumentException("more than one icon XML file in $folder")
+                    hasIcon = true
+                    iconFilePath = tupleFileName
                 }
                 else -> throw IllegalArgumentException("wrong file type in $folder folder")
             }
 
 
         }
-        if (!hasSoundMP3) throw IllegalArgumentException("Missing Mp3 in $folder")
-        if (!hasIconXML) throw IllegalArgumentException("Missing Icon XML in $folder")
-        return SBTuple(soundMP3FilePath, iconXMLFilePath)
+        if (!hasSound) throw IllegalArgumentException("Missing $SOUND_FILE_EXTENSION in $folder")
+        if (!hasIcon) throw IllegalArgumentException("Missing Icon $IMAGE_FILE_EXTENSION in $folder")
+        return SBDatabaseTuple(soundFilePath, iconFilePath)
     }
 }

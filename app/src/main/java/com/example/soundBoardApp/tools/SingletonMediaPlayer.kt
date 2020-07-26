@@ -1,15 +1,17 @@
-package com.example.soundBoardApp
+package com.example.soundBoardApp.tools
 
 import android.content.Context
 import android.content.res.AssetFileDescriptor
 import android.media.MediaPlayer
 import android.net.Uri
+import com.example.soundBoardApp.R
 
 object SingletonMediaPlayer {
 
 
     private lateinit var buttonSoundMP: MediaPlayer
-    private const val DEFAULT_SOUND = R.raw.achievementunlocked
+    private const val DEFAULT_SOUND =
+        R.raw.achievementunlocked
 
     fun playSound(thisContext: Context, rawResID: Int) {
         val soundUri = Uri.parse("android.resource://" + thisContext.packageName + "/" + rawResID)

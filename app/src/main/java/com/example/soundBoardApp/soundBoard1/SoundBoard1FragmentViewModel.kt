@@ -1,13 +1,9 @@
 package com.example.soundBoardApp.soundBoard1
 
 import android.app.Application
-import android.content.res.AssetFileDescriptor
-import android.content.res.AssetManager
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import com.example.soundBoardApp.R
-import com.example.soundBoardApp.SingletonMediaPlayer
-import java.io.IOException
+import com.example.soundBoardApp.tools.SingletonMediaPlayer
 
 
 private const val TAG = "SB1FragmentVM"
