@@ -1,14 +1,13 @@
 package com.example.soundBoardApp.soundBoard2
 
+import android.graphics.drawable.PictureDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProviders
-import com.example.soundBoardApp.R
+import com.caverock.androidsvg.SVG
 import com.example.soundBoardApp.databinding.SoundBoard2FragmentBinding
 import com.example.soundBoardApp.tools.DependencyInjectors
 
@@ -36,6 +35,14 @@ class SoundBoard2Fragment : Fragment() {
 //        //TODO: bind the dog sound/icon to button for testing
 //        soundBoard2FragmentBinding.soundButton2.setImageDrawable(soundBoard2ViewModel.getDrawable())
 //        soundBoard2FragmentBinding.soundButton1.setImageAsset(soundBoard2ViewModel.filePathSVG())
+
+        val svg = SVG.getFromAsset(requireNotNull(this.activity).assets,"SBtuples/cow/noun_Cow_2761461.svg")
+        soundBoard2FragmentBinding.soundButton10.setBackgroundResource(0)
+        val buttonWidthPixels = soundBoard2FragmentBinding.soundButton10.layoutParams.width
+        val buttonHeightPixels = soundBoard2FragmentBinding.soundButton10.layoutParams.height
+        var svgAsDrawable = PictureDrawable(svg.renderToPicture(buttonWidthPixels,buttonHeightPixels))
+        soundBoard2FragmentBinding.soundButton10.setImageDrawable(svgAsDrawable)
+
         return soundBoard2FragmentBinding.root
     }
 
