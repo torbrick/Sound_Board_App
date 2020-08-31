@@ -46,6 +46,9 @@ class MainFragment : Fragment() {
             findNavController().navigate(R.id.action_titleFragment_to_soundBoard2Fragment)
         }
 
+        binding.SoundBoardButton.setOnClickListener{
+            findNavController().navigate(R.id.action_titleFragment_to_soundBoardFragment)
+        }
         //TODO: implement observers for navigation
 
         return binding.root

@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_titleFragment_to_soundBoard2Fragment"
             app:destination="@id/soundBoard2Fragment" />
+        <action
+            android:id="@+id/action_titleFragment_to_soundBoardFragment"
+            app:destination="@id/soundBoardFragment" />
     </fragment>
     <fragment
         android:id="@+id/soundBoard1_fragment"
@@ -26,4 +29,8 @@
         android:id="@+id/soundBoard2Fragment"
         android:name="com.example.soundBoardApp.soundBoard2.SoundBoard2Fragment"
         android:label="SoundBoard2Fragment" />
+    <fragment
+        android:id="@+id/soundBoardFragment"
+        android:name="com.example.soundBoardApp.soundBoard.SoundBoardFragment"
+        android:label="SoundBoardFragment" />
 </navigation>

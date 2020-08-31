@@ -5,7 +5,7 @@ import android.os.Bundle
 
 
 /**
- * This main activity is just a container for fragments
+ * This main activity is just a container for fragments, the host fragment
  */
 class MainActivity : AppCompatActivity() {
 

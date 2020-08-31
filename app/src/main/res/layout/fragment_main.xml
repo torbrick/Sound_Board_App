@@ -21,18 +21,6 @@
             app:layout_constraintTop_toTopOf="@+id/guideline" />
 
 
-
-        <com.caverock.androidsvg.SVGImageView
-            android:id="@+id/board2Button"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="73dp"
-            android:layout_marginEnd="181dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:text="@string/sound_board_2"
-            app:svg="AndroidSVG_logo.svg" />
-
         <ImageButton
             android:id="@+id/board1Button"
             android:layout_width="586dp"
@@ -51,6 +39,29 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.25" />
+
+        <ImageButton
+            android:id="@+id/SoundBoardButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/board2Button"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_noun_cow_2761461" />
+
+        <com.caverock.androidsvg.SVGImageView
+            android:id="@+id/board2Button"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="44dp"
+            android:text="@string/sound_board_2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/SoundBoardButton"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:svg="AndroidSVG_logo.svg" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

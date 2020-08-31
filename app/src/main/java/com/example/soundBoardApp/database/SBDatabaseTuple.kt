@@ -1,6 +1,5 @@
 package com.example.soundBoardApp.database
 
-import androidx.lifecycle.LiveData
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -33,15 +32,15 @@ var tupleID: Long = 0L
 fun List<SBDatabaseTuple>.asDomainModel(): List<SoundButton>{
     return map {
         SoundButton(
-            sound = it.soundMP3,
-            image = it.iconXML
+            soundPath = it.soundMP3,
+            imagePath = it.iconXML
         )
     }
 }
 
 fun SBDatabaseTuple.asDomainModel(): SoundButton{
     return SoundButton(
-            sound = soundMP3,
-            image = iconXML
+            soundPath = soundMP3,
+            imagePath = iconXML
         )
 }

@@ -19,7 +19,7 @@ class SoundBoard2Fragment : Fragment() {
 
     private val soundBoard2ViewModel: SoundBoard2ViewModel by viewModels {
         val application = requireNotNull(this.activity).application
-        DependencyInjectors.provideSoundBoardViewModelFactory(
+        DependencyInjectors.provideSoundBoard2ViewModelFactory(
             application,
             NUM_SOUND_BUTTONS
         )

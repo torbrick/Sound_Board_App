@@ -16,14 +16,13 @@ private const val DEFAULT_IMAGE = "AndroidSVG_logo.svg"
 private const val DEFAULT_SOUND = "wowa.mp3"
 
 class SoundBoard2ViewModel(
-    private val sbTuplesRepository: SBTuplesRepository,
+    sbTuplesRepository: SBTuplesRepository,
         private val numSoundButtons: Int
 ) : ViewModel() {
     private val liveDataButtonArray = Array<LiveData<SoundButton>>(numSoundButtons){ MutableLiveData(SoundButton(DEFAULT_SOUND, DEFAULT_IMAGE))}
     init {
 
-        val soundButtonList = sbTuplesRepository.soundButtons.value
-            ?: throw IllegalArgumentException("No SoundButtonList")
+        val soundButtonList = requireNotNull(sbTuplesRepository.soundButtons.value) { "No SoundButtonList" }
         for (buttonListIndex in 1..soundButtonList.size) {
             //replace old button value in array with new button value from repository
             liveDataButtonArray[buttonListIndex] = Transformations.map(liveDataButtonArray[buttonListIndex]) {
