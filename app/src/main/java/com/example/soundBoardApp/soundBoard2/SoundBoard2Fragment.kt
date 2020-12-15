@@ -36,7 +36,7 @@ class SoundBoard2Fragment : Fragment() {
 //        soundBoard2FragmentBinding.soundButton2.setImageDrawable(soundBoard2ViewModel.getDrawable())
 //        soundBoard2FragmentBinding.soundButton1.setImageAsset(soundBoard2ViewModel.filePathSVG())
 
-        val svg = SVG.getFromAsset(requireNotNull(this.activity).assets,"SBtuples/cow/noun_Cow_2761461.svg")
+        val svg = SVG.getFromAsset(requireNotNull(activity).assets,"SBtuples/cow/noun_Cow_2761461.svg")
         soundBoard2FragmentBinding.soundButton10.setBackgroundResource(0)
         val buttonWidthPixels = soundBoard2FragmentBinding.soundButton10.layoutParams.width
         val buttonHeightPixels = soundBoard2FragmentBinding.soundButton10.layoutParams.height

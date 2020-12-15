@@ -9,21 +9,25 @@ import com.example.soundBoardApp.databinding.ListSoundButtonBinding
 import com.example.soundBoardApp.tools.SoundButton
 
 
-class SoundButtonAdapter :
-    ListAdapter<SoundButton, SoundButtonAdapter.SoundButtonViewHolder>(SoundButtonDiffCallBack()) {
+class SoundButtonListAdapter :
+    ListAdapter<SoundButton, SoundButtonListAdapter.SoundButtonViewHolder>(SoundButtonDiffCallBack()) {
 
-    override fun onBindViewHolder(soundButtonViewHolder: SoundButtonViewHolder, position: Int) {
-        val button = getItem(position)
-        soundButtonViewHolder.bind(button)
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SoundButtonViewHolder {
         return SoundButtonViewHolder.createFromParent(parent)
     }
 
+
+    override fun onBindViewHolder(soundButtonViewHolder: SoundButtonViewHolder, position: Int) {
+        val curButton = getItem(position)
+        soundButtonViewHolder.bindSoundButtonToViewHolder(curButton)
+    }
+
+
+
     class SoundButtonViewHolder private constructor(val listSoundButtonBinding: ListSoundButtonBinding) :
         RecyclerView.ViewHolder(listSoundButtonBinding.root) {
-        fun bind(button: SoundButton) {
+        fun bindSoundButtonToViewHolder(button: SoundButton) {
             listSoundButtonBinding.soundButton = button
             /**
              * recommended to executePendingBindings when using binding adapters with recycler view,
@@ -44,14 +48,14 @@ class SoundButtonAdapter :
 }
 
 
-// TODO: 8/22/2020 create difference call back
+// TODO: 8/22/2020 change are items the same to a ID implementation
 class SoundButtonDiffCallBack : DiffUtil.ItemCallback<SoundButton>() {
     override fun areItemsTheSame(oldItem: SoundButton, newItem: SoundButton): Boolean {
-        TODO("Not yet implemented")
+        return (oldItem.shortDescription == newItem.shortDescription)
     }
 
     override fun areContentsTheSame(oldItem: SoundButton, newItem: SoundButton): Boolean {
-        TODO("Not yet implemented")
+        return (oldItem.imagePath == newItem.imagePath && oldItem.soundPath == newItem.soundPath)
     }
 
 }

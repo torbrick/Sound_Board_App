@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.GridLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -14,7 +13,7 @@ import com.example.soundBoardApp.tools.DependencyInjectors
 
 
 private const val TAG = "SBFragment"
-private const val NUM_SOUND_BUTTONS = 12
+private const val NUM_SOUND_BUTTONS = 15
 
 class SoundBoardFragment : Fragment() {
     /**
@@ -35,7 +34,7 @@ class SoundBoardFragment : Fragment() {
         val soundBoardFragmentBinding: FragmentSoundBoardBinding =
             FragmentSoundBoardBinding.inflate(inflater, container, false)
 
-        val listAdapter = SoundButtonAdapter() //create adapter
+        val listAdapter = SoundButtonListAdapter() //create adapter
         soundBoardFragmentBinding.buttonRecycler.adapter = listAdapter //bind adapter
 
 
@@ -46,20 +45,20 @@ class SoundBoardFragment : Fragment() {
         soundBoardFragmentBinding.buttonRecycler.layoutManager = manager
 
 
-        soundBoardViewModel.liveTestList.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                listAdapter.submitList(it)
-            }  })
+//        soundBoardViewModel.liveTestList.observe(viewLifecycleOwner, Observer {
+//            it?.let {
+//                listAdapter.submitList(it)
+//            }  })
 
 
         /**
          *ties the lifeCycle of the livedata to this fragment,
          *Observer works as a Single Abstract Method(SAM) conversion
          */
-//        soundBoardViewModel.liveSoundButtonList.observe(viewLifecycleOwner, Observer {
-//            it?.let {
-//                listAdapter.submitList(it)
-//            }  })
+        soundBoardViewModel.liveSoundButtonList.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                listAdapter.submitList(it)
+            }  })
 
 //        val svg = SVG.getFromAsset(requireNotNull(this.activity).assets,"SBtuples/cow/noun_Cow_2761461.svg")
 //        soundBoardFragmentBinding.soundButton10.setBackgroundResource(0)

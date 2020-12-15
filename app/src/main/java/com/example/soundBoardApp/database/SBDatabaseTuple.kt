@@ -29,6 +29,7 @@ var tupleID: Long = 0L
 
 )
 
+// TODO: 9/1/2020 go over and explain map vs switchMap
 fun List<SBDatabaseTuple>.asDomainModel(): List<SoundButton>{
     return map {
         SoundButton(

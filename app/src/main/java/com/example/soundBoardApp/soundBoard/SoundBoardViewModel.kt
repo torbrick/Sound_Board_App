@@ -20,34 +20,34 @@ class SoundBoardViewModel(
     sbTuplesRepository: SBTuplesRepository,
     numSoundButtons: Int
 ) : ViewModel() {
-//    private var soundButtonList: ArrayList<SoundButton>
+    val liveSoundButtonList: MutableLiveData<List<SoundButton>>
+//    val testList : ArrayList<SoundButton>
+//    val liveTestList : MutableLiveData<ArrayList<SoundButton>>
 //
-//
-//    val liveSoundButtonList: MutableLiveData<ArrayList<SoundButton>>
-    val testList : ArrayList<SoundButton>
-    val liveTestList : MutableLiveData<ArrayList<SoundButton>>
+//    init {
+//        testList = ArrayList<SoundButton>().apply {
+//            repeat(numSoundButtons){this.add(SoundButton(DEFAULT_SOUND, DEFAULT_IMAGE))}}
+//        liveTestList = MutableLiveData(testList)
+//    }
+
 
     init {
-        testList = ArrayList<SoundButton>().apply {
-            repeat(numSoundButtons){this.add(SoundButton(DEFAULT_SOUND, DEFAULT_IMAGE))}}
-        liveTestList = MutableLiveData(testList)
-    }
-
-
-//   init {
-//        val buttonArraylist = ArrayList<SoundButton>().apply {
-//            repeat(numSoundButtons) { this.add(SoundButton(DEFAULT_SOUND, DEFAULT_IMAGE)) }
-//        }
-//        liveSoundButtonList = sbTuplesRepository.getAllSoundButtons() ?: buttonArraylist
-//       val repoButtonList = sbTuplesRepository.soundButtons.value
-//       val
+        val buttonArraylist = ArrayList<SoundButton>().apply {
+            repeat(numSoundButtons) { this.add(SoundButton(DEFAULT_SOUND, DEFAULT_IMAGE)) }
+        }
+        val soundButtonList = sbTuplesRepository.getAllSoundButtons().value?.toMutableList() ?: mutableListOf()
+        for (iii in soundButtonList.size until numSoundButtons) {
+            soundButtonList.add(SoundButton(DEFAULT_SOUND, DEFAULT_IMAGE))
+        }
+        liveSoundButtonList = MutableLiveData(soundButtonList)
+        // val repoButtonList = sbTuplesRepository.soundButtons.value
 //        for (index in 0..numSoundButtons) {
-//            val buttonToAdd = if (numSoundButtons >= repoButtonList.size) {
+//            val buttonToAdd = if (index < liveSoundButtonList.size) {
 //                _soundButtonList.value[index]
 //            } else {
 //                SoundButton(DEFAULT_SOUND, DEFAULT_IMAGE)
 //            }
 //            _soundButtonList.value?.add(buttonToAdd)
 //        }
-//    }
+    }
 }

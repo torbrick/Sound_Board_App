@@ -8,6 +8,7 @@ buildscript {
         version_navigation = '2.0.0'
         version_room = '2.2.5'
         version_work = '2.3.4'
+        version_glide = '4.11.0'
     }
     repositories {
         google()
