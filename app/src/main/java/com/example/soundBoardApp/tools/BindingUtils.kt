@@ -32,7 +32,8 @@ const val BUTTON_HEIGHT_PIXELS = 250
 fun ImageView.setButtonImage(button: SoundButton?){
     button?.let {
 //        val svg = SVG.getFromAsset(requireNotNull(this.context).assets, it.imagePath)
-        val svg = SVG.getFromAsset(requireNotNull(this.context).assets, "SBtuples/cow/noun_Cow_2761461.svg")
+        val svg = SVG.getFromAsset(requireNotNull(this.context).assets,
+            it.imagePath)
         val svgAsDrawable = PictureDrawable(svg.renderToPicture(BUTTON_WIDTH_PIXELS,BUTTON_HEIGHT_PIXELS))
         Glide.with(this.context)
             .load(svgAsDrawable)
@@ -49,9 +50,17 @@ fun ImageView.setButtonImage(button: SoundButton?){
 //        this.setImageDrawable(svgAsDrawable)
     }
 }
+private const val buttonSound1 = R.raw.wowa //TODO: delete this test asset
 
+@BindingAdapter("soundButtonClick")
+fun ImageView.setButtonClick(button: SoundButton?) {
+    button?.let {
+        this.setOnClickListener {
+            SingletonMediaPlayer.playSound(this.context, buttonSound1)
+        }
+    }
 
-
+}
 
 //fun ImageButton.setButtonImage(view: View, button: SoundButton?){
 //    button?.let {
