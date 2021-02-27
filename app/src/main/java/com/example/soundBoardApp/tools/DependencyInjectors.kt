@@ -11,7 +11,7 @@ import com.example.soundBoardApp.soundBoard2.SoundBoard2ViewModelFactory
 object DependencyInjectors {
     private fun getSBTuplesRepository(context: Context): SBTuplesRepository{
         return  SBTuplesRepository.getInstance(
-            SBDatabase.getInstance(context).sBTuplesDatabaseDao
+            SBDatabase.getInstance(context).sBTuplesDatabaseDao()
         )
     }
     fun provideSoundBoardViewModelFactory(context: Context, numSoundButtons: Int): SoundBoardViewModelFactory {

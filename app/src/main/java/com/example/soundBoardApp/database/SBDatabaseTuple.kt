@@ -1,5 +1,6 @@
 package com.example.soundBoardApp.database
 
+import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -24,8 +25,11 @@ data class SBDatabaseTuple(
     @ColumnInfo(name = "icon_image_XML")
     val iconXML: String,
 
+    //put last in data class to allow easy dataClass(deceleration,deceleration)
     @PrimaryKey(autoGenerate = true)
-var tupleID: Long = 0L
+    @NonNull
+    @ColumnInfo(name = "tupleID")
+    var tupleID: Long = 0L
 
 )
 

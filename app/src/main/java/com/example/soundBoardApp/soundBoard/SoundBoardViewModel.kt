@@ -1,5 +1,6 @@
 package com.example.soundBoardApp.soundBoard
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -7,7 +8,7 @@ import androidx.lifecycle.ViewModel
 import com.example.soundBoardApp.database.SBTuplesRepository
 import com.example.soundBoardApp.tools.SoundButton
 
-private const val TAG = "SBViewModel"
+private const val TAG = "LCM: SBViewModel"
 private const val DEFAULT_IMAGE = "AndroidSVG_logo.svg"
 private const val DEFAULT_SOUND = "wowa.mp3"
 
@@ -32,6 +33,7 @@ class SoundBoardViewModel(
 
 
     init {
+        Log.d(TAG, "SoundBoardViewModel init")
         val buttonArraylist = ArrayList<SoundButton>().apply {
             repeat(numSoundButtons) { this.add(SoundButton(DEFAULT_SOUND, DEFAULT_IMAGE)) }
         }

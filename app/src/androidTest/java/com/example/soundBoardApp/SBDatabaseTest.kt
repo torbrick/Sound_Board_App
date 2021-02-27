@@ -36,7 +36,7 @@ class SBTuplesDatabaseTest {
                 // Allowing main thread queries, just for testing.
                 .allowMainThreadQueries()
                 .build()
-            sbTuplesDao = db.sBTuplesDatabaseDao
+            sbTuplesDao = db.sBTuplesDatabaseDao()
         }
 
         @After

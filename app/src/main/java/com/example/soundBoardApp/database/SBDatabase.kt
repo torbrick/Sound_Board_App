@@ -17,6 +17,7 @@
 package com.example.soundBoardApp.database
 
 import android.content.Context
+import androidx.databinding.adapters.Converters
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -29,7 +30,7 @@ const val DATABASE_NAME = "soundBoard_tuples_database"
 @Database(entities = [SBDatabaseTuple::class], version = 1, exportSchema = false)
 abstract class SBDatabase : RoomDatabase() {
     //connect database to DAO
-    abstract val sBTuplesDatabaseDao: SBTuplesDatabaseDao
+    abstract fun sBTuplesDatabaseDao(): SBTuplesDatabaseDao
     /**
      * Define a companion object, this allows us to add functions on the SleepDatabase class.
      *
@@ -92,7 +93,7 @@ abstract class SBDatabase : RoomDatabase() {
                 SBDatabase::class.java,
                 DATABASE_NAME
             )
-                .addCallback(object : Callback() {
+                .addCallback(object : RoomDatabase.Callback() {
                     //this is the Call Back that gets called on creation
                     override fun onCreate(db: SupportSQLiteDatabase) {
                         super.onCreate(db)

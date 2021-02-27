@@ -8,7 +8,7 @@ import androidx.work.WorkerParameters
 import kotlinx.coroutines.coroutineScope
 import java.lang.Exception
 
-private const val TAG = "SBDatabaseWorker"
+private const val TAG = "LCM: SBDatabaseWorker"
 
 /**
  * Worker to seed database on creation
@@ -18,11 +18,10 @@ class SBDatabaseWorker(
     workerParams: WorkerParameters
 ) : CoroutineWorker(context, workerParams) {
     private val thisContext = context
-    private val databaseDao = SBDatabase.getInstance(thisContext).sBTuplesDatabaseDao
+    private val databaseDao = SBDatabase.getInstance(thisContext).sBTuplesDatabaseDao()
 
     override suspend fun doWork(): Result = coroutineScope {
 
-       // TODO("Not yet implemented")
         try {
             parseStockTuples()
             Result.success()
