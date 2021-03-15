@@ -20,7 +20,8 @@ class SoundBoardFragment : Fragment() {
      * uses a delegate to create viewModel via custom View Model Factory
      */
     private val soundBoardViewModel: SoundBoardViewModel by viewModels {
-        val application = requireNotNull(this.activity).application
+        //val application = requireNotNull(this.activity).application
+        val application = requireContext()
         DependencyInjectors.provideSoundBoardViewModelFactory(
             application,
             NUM_SOUND_BUTTONS

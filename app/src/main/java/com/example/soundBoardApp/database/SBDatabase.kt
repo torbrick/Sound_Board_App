@@ -21,13 +21,15 @@ import androidx.databinding.adapters.Converters
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 
 const val DATABASE_NAME = "soundBoard_tuples_database"
 
-@Database(entities = [SBDatabaseTuple::class], version = 1, exportSchema = false)
+@Database(entities = [SBDatabaseTuple::class], version = 2, exportSchema = false)
+//@TypeConverters(Converters::class) we don't have type converters, if we did they would be created by us
 abstract class SBDatabase : RoomDatabase() {
     //connect database to DAO
     abstract fun sBTuplesDatabaseDao(): SBTuplesDatabaseDao
@@ -78,9 +80,9 @@ abstract class SBDatabase : RoomDatabase() {
                 // If instance is `null` make a new database instance.
                 if (instance == null) {
 
-                    instance = buildDatabase(context)
+                    instance = buildDatabase(context).also { INSTANCE = it }
                     // Assign INSTANCE to the newly created database.
-                    INSTANCE = instance
+                    //INSTANCE = instance
                 }
                 // Return instance; smart cast to be non-null.
                 return instance
