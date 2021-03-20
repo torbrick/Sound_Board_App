@@ -1,14 +1,13 @@
-package com.example.soundBoardApp.data
+package com.example.soundBoardApp.database
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.platform.app.InstrumentationRegistry
-import com.example.soundBoardApp.database.SBDatabase
-import com.example.soundBoardApp.database.SBTuplesDatabaseDao
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
+import org.junit.Test
 
 abstract class SBDataBaseTest {
     private lateinit var sbDatabase: SBDatabase
@@ -24,6 +23,7 @@ abstract class SBDataBaseTest {
         sbDatabase = Room.inMemoryDatabaseBuilder(context, SBDatabase::class.java).build()
         sbTuplesDao = sbDatabase.sBTuplesDatabaseDao()
     }
+
 
     @After
     fun closeDb() {

@@ -91,7 +91,7 @@ abstract class SBDatabase : RoomDatabase() {
 
         private fun buildDatabase(context: Context): SBDatabase {
             return Room.databaseBuilder(
-                context.applicationContext,
+                context,
                 SBDatabase::class.java,
                 DATABASE_NAME
             )

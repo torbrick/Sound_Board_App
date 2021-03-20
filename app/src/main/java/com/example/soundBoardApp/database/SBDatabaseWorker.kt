@@ -10,7 +10,7 @@ import kotlinx.coroutines.coroutineScope
 import java.lang.Exception
 
 private const val TAG = "LCM:SBDatabaseWorker"
-
+// TODO: 3/20/2021 add worker factory, to DI the dataBaseDao rather than call it here
 /**
  * Worker to seed database on creation
  */
@@ -19,12 +19,18 @@ class SBDatabaseWorker(
     workerParams: WorkerParameters
 ) : CoroutineWorker(context, workerParams) {
     private val thisContext = context
-    private val databaseDao = SBDatabase.getInstance(applicationContext).sBTuplesDatabaseDao()
+    private val dBTuplesDao = SBDatabase.getInstance(applicationContext).sBTuplesDatabaseDao()
+    private var _seededTupleFolderCount = 0
+    val seededTupleFolderCount :Int
+        get() =_seededTupleFolderCount
+    private var _seededTuplesCount = 0
+    val seededTuplesCount : Int
+        get() = _seededTuplesCount
 
     override suspend fun doWork(): Result = coroutineScope {
 
         try {
-            parseStockTuples()
+            parseStockTuples(dBTuplesDao)
             Result.success()
         }catch (exception: Exception){
             Log.e(TAG, "Error seeding database", exception)
@@ -36,16 +42,20 @@ class SBDatabaseWorker(
     /**
      * Seeds the database from the file structure
      */
-
-    fun parseStockTuples() {
+    fun parseStockTuples(dBDao: SBTuplesDatabaseDao): ArrayList<SBDatabaseTuple> {
+        val sBTuplesFromFiles = ArrayList<SBDatabaseTuple>()
         Log.i(TAG, "packagePath:" + thisContext.packageCodePath)
         val assetManager = thisContext.assets
         val assetsFolderContents = assetManager.list(TUPLES_FOLDER_NAME)
             ?: throw  IllegalArgumentException("error opening assetsFolderContents")
         for (folder in assetsFolderContents) { //go through each folder
             Log.i(TAG, "assetItem:$folder")
-            databaseDao.insert(parseTupleFolderToSBDatabaseTuple(assetManager,folder))
+            val curSBDatabaseTuple = parseTupleFolderToSBDatabaseTuple(assetManager,folder)
+            sBTuplesFromFiles.add(curSBDatabaseTuple)
+            dBDao.insert(curSBDatabaseTuple)
+           _seededTupleFolderCount++
         }
+        return sBTuplesFromFiles
     }
 
     /**
@@ -90,10 +100,11 @@ class SBDatabaseWorker(
                 }
                 else -> throw IllegalArgumentException("wrong file: '$assetExtension' type in '$folder' folder")
             }
-
         }
         if (!hasSound) throw IllegalArgumentException("Missing Sound File in $folder")
         if (!hasIcon) throw IllegalArgumentException("Missing Icon Image File in $folder")
-        return SBDatabaseTuple(soundFilePath, iconFilePath)
+
+        val manualDBKey = (++_seededTuplesCount).toLong()
+        return SBDatabaseTuple(soundFilePath, iconFilePath,manualDBKey)
     }
 }

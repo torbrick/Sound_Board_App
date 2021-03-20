@@ -21,35 +21,15 @@ class SoundBoardViewModel(
     sbTuplesRepository: SBTuplesRepository,
     numSoundButtons: Int
 ) : ViewModel() {
-    val liveSoundButtonList: MutableLiveData<List<SoundButton>>
-//    val testList : ArrayList<SoundButton>
-//    val liveTestList : MutableLiveData<ArrayList<SoundButton>>
-//
-//    init {
-//        testList = ArrayList<SoundButton>().apply {
-//            repeat(numSoundButtons){this.add(SoundButton(DEFAULT_SOUND, DEFAULT_IMAGE))}}
-//        liveTestList = MutableLiveData(testList)
-//    }
-
+    val liveSoundButtonList: LiveData<List<SoundButton>>
 
     init {
         Log.d(TAG, "SoundBoardViewModel init")
-        val buttonArraylist = ArrayList<SoundButton>().apply {
-            repeat(numSoundButtons) { this.add(SoundButton(DEFAULT_SOUND, DEFAULT_IMAGE)) }
-        }
-        val soundButtonList = sbTuplesRepository.getAllSoundButtons().value?.toMutableList() ?: mutableListOf()
-        for (iii in soundButtonList.size until numSoundButtons) {
-            soundButtonList.add(SoundButton(DEFAULT_SOUND, DEFAULT_IMAGE))
-        }
-        liveSoundButtonList = MutableLiveData(soundButtonList)
-        // val repoButtonList = sbTuplesRepository.soundButtons.value
-//        for (index in 0..numSoundButtons) {
-//            val buttonToAdd = if (index < liveSoundButtonList.size) {
-//                _soundButtonList.value[index]
-//            } else {
-//                SoundButton(DEFAULT_SOUND, DEFAULT_IMAGE)
-//            }
-//            _soundButtonList.value?.add(buttonToAdd)
+//        val buttonArraylist = ArrayList<SoundButton>().apply {
+//            repeat(numSoundButtons) { this.add(SoundButton(DEFAULT_SOUND, DEFAULT_IMAGE)) }
 //        }
+       liveSoundButtonList = sbTuplesRepository.getAllSoundButtons()
     }
+
+
 }
