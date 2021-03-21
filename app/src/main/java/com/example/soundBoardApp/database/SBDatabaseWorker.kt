@@ -16,10 +16,11 @@ private const val TAG = "LCM:SBDatabaseWorker"
  */
 class SBDatabaseWorker(
     context: Context,
-    workerParams: WorkerParameters
+    workerParams: WorkerParameters,
+    sBTuplesDao: SBTuplesDatabaseDao
 ) : CoroutineWorker(context, workerParams) {
     private val thisContext = context
-    private val dBTuplesDao = SBDatabase.getInstance(applicationContext).sBTuplesDatabaseDao()
+    private val dBTuplesDao = sBTuplesDao
     private var _seededTupleFolderCount = 0
     val seededTupleFolderCount :Int
         get() =_seededTupleFolderCount

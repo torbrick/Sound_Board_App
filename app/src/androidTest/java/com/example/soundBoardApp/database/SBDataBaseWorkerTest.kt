@@ -7,6 +7,7 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.work.ListenableWorker
 import androidx.work.WorkManager
 import androidx.work.testing.TestListenableWorkerBuilder
+import com.example.soundBoardApp.tools.DependencyInjectors
 import com.example.soundBoardApp.utilities.getValue
 import org.hamcrest.CoreMatchers
 import org.junit.Assert
@@ -28,7 +29,8 @@ class RefreshMainDataWorkTest : SBDataBaseTest() {
         context = ApplicationProvider.getApplicationContext()
         workManager = WorkManager.getInstance(context)
         assetManager = context.assets
-        testDBWorker = TestListenableWorkerBuilder<SBDatabaseWorker>(context).build()
+        val myWorkerFactory = DependencyInjectors.provideSBDatabaseWorkerFactory(context)
+        testDBWorker = TestListenableWorkerBuilder<SBDatabaseWorker>(context).setWorkerFactory(myWorkerFactory).build()
     }
 
     @Test
@@ -62,11 +64,8 @@ class RefreshMainDataWorkTest : SBDataBaseTest() {
 
     @Test
     fun testRefreshMainDataWork() {
-        // Get the ListenableWorker
-        val worker = TestListenableWorkerBuilder<SBDatabaseWorker>(context).build()
-
         // Start the work synchronously
-        val result = worker.startWork().get()
+        val result = testDBWorker.startWork().get()
         Assert.assertThat(result, CoreMatchers.`is`(ListenableWorker.Result.success()))
     }
 
