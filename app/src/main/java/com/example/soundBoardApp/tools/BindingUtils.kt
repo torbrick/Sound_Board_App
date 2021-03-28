@@ -54,9 +54,10 @@ private const val buttonSound1 = R.raw.wowa //TODO: delete this test asset
 
 @BindingAdapter("soundButtonClick")
 fun ImageView.setButtonClick(button: SoundButton?) {
-    button?.let {
-        this.setOnClickListener {
-            SingletonMediaPlayer.playSound(this.context, buttonSound1)
+    button?.apply {
+        setOnClickListener {
+            val soundFileDescriptor = context.assets.openFd(this.soundPath)
+            SingletonMediaPlayer.playSound(soundFileDescriptor)
         }
     }
 

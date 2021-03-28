@@ -22,14 +22,9 @@ class SoundBoardViewModel(
     numSoundButtons: Int
 ) : ViewModel() {
     val liveSoundButtonList: LiveData<List<SoundButton>>
-
+    //var numSoundButtonsLiveData = MutableLiveData(numSoundButtons)
     init {
         Log.d(TAG, "SoundBoardViewModel init")
-//        val buttonArraylist = ArrayList<SoundButton>().apply {
-//            repeat(numSoundButtons) { this.add(SoundButton(DEFAULT_SOUND, DEFAULT_IMAGE)) }
-//        }
-       liveSoundButtonList = sbTuplesRepository.getAllSoundButtons()
+       liveSoundButtonList = Transformations.map(sbTuplesRepository.getAllSoundButtons()){it.take(numSoundButtons)}
     }
-
-
 }
