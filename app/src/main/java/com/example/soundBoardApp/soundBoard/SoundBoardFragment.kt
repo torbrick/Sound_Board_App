@@ -27,16 +27,18 @@ class SoundBoardFragment : Fragment() {
             NUM_SOUND_BUTTONS
         )
     }
+    
+    private lateinit var soundBoardFragmentBinding : FragmentSoundBoardBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val soundBoardFragmentBinding: FragmentSoundBoardBinding =
-            FragmentSoundBoardBinding.inflate(inflater, container, false)
+        soundBoardFragmentBinding = FragmentSoundBoardBinding.inflate(inflater, container, false)
 
         val listAdapter = SoundButtonListAdapter() //create adapter
         soundBoardFragmentBinding.buttonRecycler.adapter = listAdapter //bind adapter
+        
         subscribeUi(listAdapter)
 
 
@@ -52,8 +54,12 @@ class SoundBoardFragment : Fragment() {
      *Observer works as a Single Abstract Method(SAM) conversion
      */
     private fun subscribeUi(listAdapter: SoundButtonListAdapter) {
-        soundBoardViewModel.liveSoundButtonList.observe(viewLifecycleOwner){
-            soundButtonList -> listAdapter.submitList(soundButtonList)
+        soundBoardViewModel.viewModelSoundButtonList.observe(viewLifecycleOwner){ truncatedSoundButtonList ->
+            listAdapter.submitList(truncatedSoundButtonList)
+            val maxButtonsReached = (truncatedSoundButtonList.size >= soundBoardViewModel.maxNumSoundButtons)
+                    soundBoardFragmentBinding.addSoundButtonFAB.apply {
+                        if(maxButtonsReached) hide() else show()
+                    }            
         }
     }
 }

@@ -23,4 +23,5 @@
     <string name="sound_4">Sound 4</string>
     <string name="sound_9">Sound 9</string>
     <string name="image_depicting_a_sound">image depicting a sound</string>
+    <string name="FAB">FAB to add new soundButton</string>
 </resources>

@@ -7,16 +7,24 @@ import android.net.Uri
 import android.util.Log
 import java.lang.Exception
 
+// TODO: 3/28/2021 add individual volume control for sounds
+
 private const val TAG = "SingletonMediaPlayer"
 
 object SingletonMediaPlayer {
 
+    /**
+     * @buttonSoundMP is nullable because the resulting object from MediaPlayer is a platform type
+     */
     private var buttonSoundMP: MediaPlayer? = MediaPlayer().apply {
         setOnCompletionListener {
+            //TODO: remove the setOnCompletionListener if we end up not actually needing it for anything
             Log.d(TAG, "On Completion Listener TRIGGERED")
             stop()
         }
     }
+
+
 
     fun playSound(thisContext: Context, rawResID: Int) {
         val soundUri = Uri.parse("android.resource://" + thisContext.packageName + "/" + rawResID)
