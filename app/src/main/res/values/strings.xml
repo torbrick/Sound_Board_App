@@ -33,4 +33,6 @@
     <string name="playSoundButton_description">plays sound selected for soundButton being created</string>
     <string name="editSoundPathButton_description">edit the file path for the sound selected</string>
     <string name="editImagePathButton_description">edit the file path for the image selected</string>
+    <string name="cancelButton_text">Cancel</string>
+    <string name="saveButton_text">Save</string>
 </resources>

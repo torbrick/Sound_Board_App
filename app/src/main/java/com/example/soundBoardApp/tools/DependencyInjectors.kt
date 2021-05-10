@@ -1,5 +1,8 @@
 package com.example.soundBoardApp.tools
 
+import android.app.Activity
+import android.app.Application
+import android.app.Service
 import android.content.Context
 import androidx.annotation.IntegerRes
 import com.example.soundBoardApp.database.SBDatabase
@@ -18,8 +21,8 @@ object DependencyInjectors {
         )
     }
 
-    fun provideSoundBoardViewModelFactory(context: Context, numSoundButtons: Int): SoundBoardViewModelFactory {
-        return SoundBoardViewModelFactory(getSBTuplesRepository(context), numSoundButtons)
+    fun provideSoundBoardViewModelFactory(context: Context, numSoundButtons: Int, application: Application): SoundBoardViewModelFactory {
+        return SoundBoardViewModelFactory(getSBTuplesRepository(context), numSoundButtons, application)
     }
 
     fun provideSBDatabaseWorkerFactory(context: Context): SBDatabaseWorkerFactory {

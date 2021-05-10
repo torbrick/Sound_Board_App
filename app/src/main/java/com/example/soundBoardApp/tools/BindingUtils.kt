@@ -5,11 +5,14 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.caverock.androidsvg.SVG
 import com.example.soundBoardApp.R
+import com.example.soundBoardApp.soundBoard.SoundBoardFragment
+
 const val BUTTON_WIDTH_PIXELS = 250
 const val BUTTON_HEIGHT_PIXELS = 250
 
@@ -40,3 +43,11 @@ fun ImageView.setButtonClick(button: SoundButton?) {
     }
 
 }
+
+//@BindingAdapter("cancelCreatorPopUpWindow")
+//fun Button.setClickCancelCreatorPopUpWindow(fragment : SoundBoardFragment){
+//    setOnClickListener {
+//        Toast.makeText(this.context, "cancel button pressed", Toast.LENGTH_SHORT).show()
+//        //fragment.closeSoundButtonCreatorPopUp()
+//    }
+//}

@@ -6,8 +6,8 @@ private const val NUM_CHAR_TRUNCATE = 200
  * SoundButton represents a sound to be played and a corresponding image to be displayed
  */
 data class SoundButton(
-    val soundPath: String,
-    val imagePath: String,
+    var soundPath: String = "",
+    var imagePath: String = "",
     val description: String = "image that plays a sound"
 ) {
 
