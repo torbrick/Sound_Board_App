@@ -80,7 +80,7 @@ object SingletonMediaPlayer {
         }
     }
 
-    private fun playUri(thisContext: Context, soundUri: Uri) {
+    fun playUri(thisContext: Context, soundUri: Uri) {
             buttonSoundMP?.apply {
                 reset()
                 try{

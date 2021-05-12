@@ -27,13 +27,14 @@ import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.Observer
 import androidx.lifecycle.observe
-import com.example.soundBoardApp.tools.generateFileNameFromURI
+import com.example.soundBoardApp.tools.SUPPORTED_IMAGE_MIME_TYPES
+import com.example.soundBoardApp.tools.SUPPORTED_SOUND_MIME_TYPES
+import com.example.soundBoardApp.tools.SingletonMediaPlayer
 
 
 private const val TAG = "SBFragment"
 private const val NUM_SOUND_BUTTONS = 15
 private const val NUM_OF_BUTTON_COLUMNS = 3
-val ACCEPTED_MIMETYPES = arrayOf("image/jpeg", "image/png")
 
 class SoundBoardFragment : Fragment() {
     /**
@@ -50,9 +51,9 @@ class SoundBoardFragment : Fragment() {
     }
 
     private lateinit var soundBoardFragmentBinding: FragmentSoundBoardBinding
-    private lateinit var creatorSoundButtonBinding : CreatorSoundButtonBinding
-    private lateinit var popUpWindowView : View
-    private var soundButtonCreatorPopUpWindow : PopupWindow? = null
+    private lateinit var creatorSoundButtonBinding: CreatorSoundButtonBinding
+    private lateinit var popUpWindowView: View
+    private var soundButtonCreatorPopUpWindow: PopupWindow? = null
 
     private val selectImage = registerForActivityResult(GetContentWithExtras()) { uri ->
         uri?.let {
@@ -61,10 +62,11 @@ class SoundBoardFragment : Fragment() {
         }
     }
 
-    private val selectSound = registerForActivityResult(GetContentWithExtras()){
-
+    private val selectSound = registerForActivityResult(GetContentWithExtras()) { uri ->
+        uri?.let {
+            soundBoardViewModel.setNewSoundFileNameAndUri(uri)
+        }
     }
-
 
 
     override fun onCreateView(
@@ -76,10 +78,11 @@ class SoundBoardFragment : Fragment() {
         val listAdapter = SoundButtonListAdapter() //create adapter
         subscribeUi(listAdapter)
 
-        creatorSoundButtonBinding = CreatorSoundButtonBinding.inflate(inflater,container,false).also {
-            it.soundBoardViewModel = soundBoardViewModel
-            it.lifecycleOwner = viewLifecycleOwner
-        }
+        creatorSoundButtonBinding =
+            CreatorSoundButtonBinding.inflate(inflater, container, false).also {
+                it.soundBoardViewModel = soundBoardViewModel
+                it.lifecycleOwner = viewLifecycleOwner
+            }
 
         soundBoardFragmentBinding =
             FragmentSoundBoardBinding.inflate(inflater, container, false).apply {
@@ -93,46 +96,58 @@ class SoundBoardFragment : Fragment() {
 
     // TODO: 3/31/2021 define this in XML rather than programmatically
     fun launchSoundButtonCreatorPopUp(view: View) {
-        //val myView = view.rootView as ViewGroup
-        //val sBCreatorPopUpWindowView = layoutInflater.inflate(R.layout.creator_sound_button, myView  )
-       // creatorSoundButtonBinding = CreatorSoundButtonBinding.inflate(layoutInflater, null, false)
-       // creatorSoundButtonBinding.soundBoardFragment = this
-        popUpWindowView = layoutInflater.inflate(R.layout.creator_sound_button, null  ).apply {
-//            soundBoardViewModel.newImageFileName.observe(viewLifecycleOwner,Observer<String?>{
-//                textFieldImageFilePath.setText(it)
-//            })
 
-        }
+        popUpWindowView = layoutInflater.inflate(R.layout.creator_sound_button, null)
 
-        soundBoardViewModel.newImageFileName.observe(viewLifecycleOwner,Observer{imagePathString: String ->
-            popUpWindowView.textFieldImageFilePath.setText(imagePathString)
-            popUpWindowView.imageForButton.setImageURI(soundBoardViewModel.newImageFileUri)
-        })
+        soundBoardViewModel.newImageFileName.observe(
+            viewLifecycleOwner,
+            Observer { imagePathString: String ->
+                popUpWindowView.textFieldImageFilePath.setText(imagePathString)
+                popUpWindowView.imageForButton.setImageURI(soundBoardViewModel.newImageFileUri)
+            })
 
-        soundBoardViewModel.newSoundFileName.observe(viewLifecycleOwner, Observer { soundPathString: String ->
-            popUpWindowView.textFieldSoundFilePath.setText(soundPathString)
+        soundBoardViewModel.newSoundFileName.observe(
+            viewLifecycleOwner,
+            Observer { soundPathString: String ->
+                popUpWindowView.textFieldSoundFilePath.setText(soundPathString)
 
-        })
+            })
 
 
         val windowWidth = ConstraintLayout.LayoutParams.WRAP_CONTENT
         val windowHeight = ConstraintLayout.LayoutParams.WRAP_CONTENT
-        soundButtonCreatorPopUpWindow = PopupWindow(popUpWindowView, windowWidth, windowHeight).apply {
+        soundButtonCreatorPopUpWindow =
+            PopupWindow(popUpWindowView, windowWidth, windowHeight).apply {
                 setBackgroundDrawable(ColorDrawable(Color.BLUE))
                 showAtLocation(view, Gravity.CENTER, 0, 0)
                 soundBoardFragmentBinding.createSoundButtonFab.hide()
             }
 
-        fun selectImage(){
-            selectImage.launch(ACCEPTED_MIMETYPES)
+        fun selectImageFile() {
+            selectImage.launch(SUPPORTED_IMAGE_MIME_TYPES)
+        }
+
+        fun selectSoundFile() {
+            selectSound.launch(SUPPORTED_SOUND_MIME_TYPES)
+        }
+
+        fun playSoundFilePreview(){
+            soundBoardViewModel.newSoundFileUri?.let { soundFileUri->
+                context?.let { currentContext ->
+                    SingletonMediaPlayer.playUri(currentContext,soundFileUri)
+                }
+
+            }
         }
 
 
+        //TODO: bind click listeners in XML
         popUpWindowView.apply {
             cancelButton.setOnClickListener { closeSoundButtonCreatorPopUp() }
-            editImagePathButton.setOnClickListener {selectImage() }
+            editImagePathButton.setOnClickListener { selectImageFile() }
+            editSoundPathButton.setOnClickListener { selectSoundFile() }
+            playSoundButton.setOnClickListener { playSoundFilePreview() }
         }
-
 
 
     }
@@ -146,9 +161,9 @@ class SoundBoardFragment : Fragment() {
     /**
      * showsFAB only if max buttons not yet reached
      */
-    private fun displayFAB(){
+    private fun displayFAB() {
         val numButtons = soundBoardViewModel.viewModelSoundButtonList.value?.size ?: 0
-        val maxButtonsReached = (numButtons>= soundBoardViewModel.maxNumSoundButtons)
+        val maxButtonsReached = (numButtons >= soundBoardViewModel.maxNumSoundButtons)
         soundBoardFragmentBinding.createSoundButtonFab.apply {
             if (maxButtonsReached) hide() else show()
         }
@@ -167,8 +182,8 @@ class SoundBoardFragment : Fragment() {
     }
 
 
-    class GetContentWithExtras : ActivityResultContract<Array<String>, Uri?>(){
-        private val contentGetter by lazy{ ActivityResultContracts.GetContent() }
+    class GetContentWithExtras : ActivityResultContract<Array<String>, Uri?>() {
+        private val contentGetter by lazy { ActivityResultContracts.GetContent() }
 
         override fun createIntent(context: Context, input: Array<String>): Intent {
             return contentGetter.createIntent(context, "*/*")
@@ -177,10 +192,9 @@ class SoundBoardFragment : Fragment() {
 
 
         override fun parseResult(resultCode: Int, intent: Intent?): Uri? {
-            return contentGetter.parseResult(resultCode,intent)
+            return contentGetter.parseResult(resultCode, intent)
         }
     }
-
 
 
 }

@@ -34,23 +34,6 @@ fun ImageView.setButtonImage(button: SoundButton?){
     }
 }
 
-@BindingAdapter("buttonImagePreview")
-fun ImageView.setButtonImagePreview(uri: Uri?){
-//    if(uri == null){
-//        this.setImageResource(R.drawable.ic_baseline_image_24)
-//    }else {
-//        Glide.with(this.context)
-//            .load(uri)
-//            .apply(
-//                RequestOptions()
-//                    .placeholder(R.drawable.loading_animation)
-//                    .error(R.drawable.ic_broken_image)
-//            )
-//            .into(this)
-//    }
-        this.setImageResource(R.drawable.ic_dogbarkicon1)
-    Log.d(TAG, "setButtonImagePreview: was called")
-}
 
 @BindingAdapter("soundButtonClick")
 fun ImageView.setButtonClick(button: SoundButton?) {
