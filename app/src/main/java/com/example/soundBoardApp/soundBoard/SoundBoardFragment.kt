@@ -27,6 +27,7 @@ import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.Observer
 import androidx.lifecycle.observe
+import com.example.soundBoardApp.tools.generateFileNameFromURI
 
 
 private const val TAG = "SBFragment"
@@ -55,8 +56,13 @@ class SoundBoardFragment : Fragment() {
 
     private val selectImage = registerForActivityResult(GetContentWithExtras()) { uri ->
         uri?.let {
-            soundBoardViewModel.copyImageFromUri(uri)
+            soundBoardViewModel.setNewImageFileNameAndUri(uri)
+            //soundBoardViewModel.copyImageFromUri(uri)
         }
+    }
+
+    private val selectSound = registerForActivityResult(GetContentWithExtras()){
+
     }
 
 
@@ -71,9 +77,9 @@ class SoundBoardFragment : Fragment() {
         subscribeUi(listAdapter)
 
         creatorSoundButtonBinding = CreatorSoundButtonBinding.inflate(inflater,container,false).also {
-            it.soundBoardFragment = this
+            it.soundBoardViewModel = soundBoardViewModel
+            it.lifecycleOwner = viewLifecycleOwner
         }
-
 
         soundBoardFragmentBinding =
             FragmentSoundBoardBinding.inflate(inflater, container, false).apply {
@@ -95,12 +101,18 @@ class SoundBoardFragment : Fragment() {
 //            soundBoardViewModel.newImageFileName.observe(viewLifecycleOwner,Observer<String?>{
 //                textFieldImageFilePath.setText(it)
 //            })
-//
-            soundBoardViewModel.newImageFileName.observe(viewLifecycleOwner,Observer{myString: String ->
-                textFieldImageFilePath.setText(myString)})
 
         }
 
+        soundBoardViewModel.newImageFileName.observe(viewLifecycleOwner,Observer{imagePathString: String ->
+            popUpWindowView.textFieldImageFilePath.setText(imagePathString)
+            popUpWindowView.imageForButton.setImageURI(soundBoardViewModel.newImageFileUri)
+        })
+
+        soundBoardViewModel.newSoundFileName.observe(viewLifecycleOwner, Observer { soundPathString: String ->
+            popUpWindowView.textFieldSoundFilePath.setText(soundPathString)
+
+        })
 
 
         val windowWidth = ConstraintLayout.LayoutParams.WRAP_CONTENT
@@ -127,6 +139,7 @@ class SoundBoardFragment : Fragment() {
 
     private fun closeSoundButtonCreatorPopUp() {
         soundButtonCreatorPopUpWindow?.dismiss()
+        soundBoardViewModel.filePathNamesAndUrisReset()
         displayFAB()
     }
 

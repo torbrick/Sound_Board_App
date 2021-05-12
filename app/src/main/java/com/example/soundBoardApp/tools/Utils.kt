@@ -1,5 +1,11 @@
 package com.example.soundBoardApp.tools
 
+import android.net.Uri
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import java.io.File
+import java.io.InputStream
+
 
 /*
  * Copyright 2018, The Android Open Source Project
@@ -46,4 +52,12 @@ fun String.smartTruncate(length: Int): String {
         builder.append("...")
     }
     return builder.toString()
+}
+
+fun generateFileNameFromURI(uri : Uri) =  "${System.currentTimeMillis()}+ ${uri.lastPathSegment}"
+
+suspend fun copyImageFromStream(input: InputStream, directory: File, outputFilename: String) {
+    withContext(Dispatchers.IO) {
+        input.copyTo(File(directory, outputFilename).outputStream())
+    }
 }

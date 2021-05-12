@@ -3,10 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
-            name="soundBoardFragment"
-            type="com.example.soundBoardApp.soundBoard.SoundBoardFragment" />
+            name="soundBoardViewModel"
+            type="com.example.soundBoardApp.soundBoard.SoundBoardViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,10 +25,11 @@
             android:id="@+id/textFieldImageFilePath"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:cursorVisible="false"
             android:ems="10"
             android:hint="@string/image_text_box_hint"
             android:importantForAutofill="no"
-            android:inputType="textPersonName"
+            android:inputType="textUri"
             android:text="@string/img_file_text_field"
             app:layout_constraintBottom_toTopOf="@+id/ImageSelectorsGL"
             app:layout_constraintEnd_toStartOf="@+id/editImagePathButton"
@@ -44,7 +44,7 @@
             android:ems="10"
             android:hint="@string/sound_text_box_hint"
             android:importantForAutofill="no"
-            android:inputType="textPersonName"
+            android:inputType="textUri"
             android:text="@string/sound_file_path_text"
             app:layout_constraintBottom_toTopOf="@+id/SoundSelectorsGL"
             app:layout_constraintEnd_toStartOf="@+id/editSoundPathButton"
@@ -63,7 +63,8 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/ic_baseline_image_24" />
+            app:srcCompat="@drawable/ic_broken_image"
+            app:buttonImagePreview="@{soundBoardViewModel.newImageFileUri}" />
 
         <ImageButton
             android:id="@+id/playSoundButton"

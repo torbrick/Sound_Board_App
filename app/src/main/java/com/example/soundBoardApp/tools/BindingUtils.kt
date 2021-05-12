@@ -1,6 +1,8 @@
 package com.example.soundBoardApp.tools
 
 import android.graphics.drawable.PictureDrawable
+import android.net.Uri
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
@@ -11,8 +13,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.caverock.androidsvg.SVG
 import com.example.soundBoardApp.R
-import com.example.soundBoardApp.soundBoard.SoundBoardFragment
 
+private const val TAG = "BindingUtils"
 const val BUTTON_WIDTH_PIXELS = 250
 const val BUTTON_HEIGHT_PIXELS = 250
 
@@ -30,6 +32,24 @@ fun ImageView.setButtonImage(button: SoundButton?){
                 .error(R.drawable.ic_broken_image))
             .into(this)
     }
+}
+
+@BindingAdapter("buttonImagePreview")
+fun ImageView.setButtonImagePreview(uri: Uri?){
+//    if(uri == null){
+//        this.setImageResource(R.drawable.ic_baseline_image_24)
+//    }else {
+//        Glide.with(this.context)
+//            .load(uri)
+//            .apply(
+//                RequestOptions()
+//                    .placeholder(R.drawable.loading_animation)
+//                    .error(R.drawable.ic_broken_image)
+//            )
+//            .into(this)
+//    }
+        this.setImageResource(R.drawable.ic_dogbarkicon1)
+    Log.d(TAG, "setButtonImagePreview: was called")
 }
 
 @BindingAdapter("soundButtonClick")
