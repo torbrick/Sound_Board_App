@@ -19,18 +19,18 @@ import org.junit.runners.JUnit4
 @RunWith(JUnit4::class)
 class RefreshMainDataWorkTest : SBDataBaseTest() {
 
-    private lateinit var context: Context
+    private lateinit var applicationContext: Context
     private lateinit var workManager: WorkManager
     private lateinit var assetManager: AssetManager
     private lateinit var testDBWorker: SBDatabaseWorker
 
     @Before
     fun setup() {
-        context = ApplicationProvider.getApplicationContext()
-        workManager = WorkManager.getInstance(context)
-        assetManager = context.assets
-        val myWorkerFactory = DependencyInjectors.provideSBDatabaseWorkerFactory(context)
-        testDBWorker = TestListenableWorkerBuilder<SBDatabaseWorker>(context).setWorkerFactory(myWorkerFactory).build()
+        applicationContext = ApplicationProvider.getApplicationContext()
+        workManager = WorkManager.getInstance(applicationContext)
+        assetManager = applicationContext.assets
+        val myWorkerFactory = DependencyInjectors.provideSBDatabaseWorkerFactory(applicationContext)
+        testDBWorker = TestListenableWorkerBuilder<SBDatabaseWorker>(applicationContext).setWorkerFactory(myWorkerFactory).build()
     }
 
     @Test

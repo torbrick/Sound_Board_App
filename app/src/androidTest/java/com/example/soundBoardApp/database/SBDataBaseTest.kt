@@ -7,10 +7,9 @@ import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
-import org.junit.Test
 
 abstract class SBDataBaseTest {
-    private lateinit var sbDatabase: SBDatabase
+    private lateinit var sbInMemoryDatabase: SBDatabase
     protected lateinit var sbTuplesDao: SBTuplesDatabaseDao
 
     @get:Rule
@@ -20,13 +19,13 @@ abstract class SBDataBaseTest {
     @Before
     fun createDb() = runBlocking {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
-        sbDatabase = Room.inMemoryDatabaseBuilder(context, SBDatabase::class.java).build()
-        sbTuplesDao = sbDatabase.sBTuplesDatabaseDao()
+        sbInMemoryDatabase = Room.inMemoryDatabaseBuilder(context, SBDatabase::class.java).build()
+        sbTuplesDao = sbInMemoryDatabase.sBTuplesDatabaseDao()
     }
 
 
     @After
     fun closeDb() {
-        sbDatabase.close()
+        sbInMemoryDatabase.close()
     }
 }

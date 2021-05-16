@@ -33,12 +33,7 @@ const val DATABASE_NAME = "soundBoard_tuples_database"
 abstract class SBDatabase : RoomDatabase() {
     //connect database to DAO
     abstract fun sBTuplesDatabaseDao(): SBTuplesDatabaseDao
-    /**
-     * Define a companion object, this allows us to add functions on the SleepDatabase class.
-     *
-     * For example, clients can call `SleepDatabase.getInstance(context)` to instantiate
-     * a new SleepDatabase.
-     */
+
     companion object {
         /**
          * INSTANCE will keep a reference to any database returned via getInstance.

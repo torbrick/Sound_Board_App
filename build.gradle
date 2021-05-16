@@ -19,6 +19,7 @@ buildscript {
         version_appcompat = '1.1.0'
         version_espresso = '3.3.0'
         version_coreTesting = '2.1.0'
+        version_mockk = "1.9.3"
     }
     repositories {
         google()

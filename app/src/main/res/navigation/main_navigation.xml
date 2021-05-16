@@ -8,5 +8,6 @@
     <fragment
         android:id="@+id/soundBoardFragment"
         android:name="com.example.soundBoardApp.soundBoard.SoundBoardFragment"
+        tools:layout="@layout/fragment_sound_board"
         android:label="SoundBoardFragment" />
 </navigation>

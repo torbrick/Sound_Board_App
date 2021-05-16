@@ -29,42 +29,56 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.observe
 import com.example.soundBoardApp.tools.SUPPORTED_IMAGE_MIME_TYPES
 import com.example.soundBoardApp.tools.SUPPORTED_SOUND_MIME_TYPES
-import com.example.soundBoardApp.tools.SingletonMediaPlayer
 
 
 private const val TAG = "SBFragment"
 private const val NUM_SOUND_BUTTONS = 15
 private const val NUM_OF_BUTTON_COLUMNS = 3
 
-class SoundBoardFragment : Fragment() {
+//class SoundBoardFragment(dependencyInjector : DependencyInjectors) : Fragment() {
+//    /**
+//     * uses a delegate to create viewModel via custom View Model Factory
+//     */
+//    private val soundBoardViewModel: SoundBoardViewModel by viewModels {
+//        //val application = requireNotNull(this.activity).application
+//        val applicationContext = requireContext()
+//        dependencyInjector.provideSoundBoardViewModelFactory(
+//            applicationContext,
+//            NUM_SOUND_BUTTONS,
+//            Application()
+//        )
+//    }
+//class SoundBoardFragment(dependencyTestPlaceHolder : String) : Fragment() {
+class SoundBoardFragment(val debugTestString : String) : Fragment(R.layout.fragment_sound_board) {
     /**
      * uses a delegate to create viewModel via custom View Model Factory
      */
     private val soundBoardViewModel: SoundBoardViewModel by viewModels {
         //val application = requireNotNull(this.activity).application
-        val application = requireContext()
+        val applicationContext = requireContext()
         DependencyInjectors.provideSoundBoardViewModelFactory(
-            application,
+            applicationContext,
             NUM_SOUND_BUTTONS,
             Application()
         )
     }
+
 
     private lateinit var soundBoardFragmentBinding: FragmentSoundBoardBinding
     private lateinit var creatorSoundButtonBinding: CreatorSoundButtonBinding
     private lateinit var popUpWindowView: View
     private var soundButtonCreatorPopUpWindow: PopupWindow? = null
 
-    private val selectImage = registerForActivityResult(GetContentWithExtras()) { uri ->
-        uri?.let {
-            soundBoardViewModel.setNewImageFileNameAndUri(uri)
-            //soundBoardViewModel.copyImageFromUri(uri)
+    private val selectImage = registerForActivityResult(GetContentWithExtras()) { imageUri ->
+        imageUri?.let {
+            soundBoardViewModel.setNewImageFile(imageUri)
+            popUpWindowView.imageForButton.setImageURI(imageUri)
         }
     }
 
     private val selectSound = registerForActivityResult(GetContentWithExtras()) { uri ->
         uri?.let {
-            soundBoardViewModel.setNewSoundFileNameAndUri(uri)
+            soundBoardViewModel.setNewSoundFile(uri)
         }
     }
 
@@ -103,7 +117,6 @@ class SoundBoardFragment : Fragment() {
             viewLifecycleOwner,
             Observer { imagePathString: String ->
                 popUpWindowView.textFieldImageFilePath.setText(imagePathString)
-                popUpWindowView.imageForButton.setImageURI(soundBoardViewModel.newImageFileUri)
             })
 
         soundBoardViewModel.newSoundFileName.observe(
@@ -131,13 +144,10 @@ class SoundBoardFragment : Fragment() {
             selectSound.launch(SUPPORTED_SOUND_MIME_TYPES)
         }
 
-        fun playSoundFilePreview(){
-            soundBoardViewModel.newSoundFileUri?.let { soundFileUri->
-                context?.let { currentContext ->
-                    SingletonMediaPlayer.playUri(currentContext,soundFileUri)
-                }
 
-            }
+        fun saveSoundButtonAndCloseCreatorPopUp(){
+
+            closeSoundButtonCreatorPopUp()
         }
 
 
@@ -146,7 +156,8 @@ class SoundBoardFragment : Fragment() {
             cancelButton.setOnClickListener { closeSoundButtonCreatorPopUp() }
             editImagePathButton.setOnClickListener { selectImageFile() }
             editSoundPathButton.setOnClickListener { selectSoundFile() }
-            playSoundButton.setOnClickListener { playSoundFilePreview() }
+            playSoundButton.setOnClickListener { soundBoardViewModel.playSoundFilePreview(context) }
+            saveButton.setOnClickListener { saveSoundButtonAndCloseCreatorPopUp() }
         }
 
 
@@ -154,7 +165,7 @@ class SoundBoardFragment : Fragment() {
 
     private fun closeSoundButtonCreatorPopUp() {
         soundButtonCreatorPopUpWindow?.dismiss()
-        soundBoardViewModel.filePathNamesAndUrisReset()
+        soundBoardViewModel.filePathsReset()
         displayFAB()
     }
 

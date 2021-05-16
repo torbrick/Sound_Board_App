@@ -7,6 +7,7 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.example.soundBoardApp.database.SBTuplesRepository
 import com.example.soundBoardApp.tools.GlobalProperties.imageFolderPath
+import com.example.soundBoardApp.tools.SingletonMediaPlayer
 import com.example.soundBoardApp.tools.SoundButton
 import com.example.soundBoardApp.tools.copyImageFromStream
 import com.example.soundBoardApp.tools.generateFileNameFromURI
@@ -24,24 +25,27 @@ private const val newSoundFileNameDefaultText = "sound file path"
  */
 
 class SoundBoardViewModel(
-    sbTuplesRepository: SBTuplesRepository,
+    private val sbTuplesRepository: SBTuplesRepository,
     val maxNumSoundButtons: Int,
     application: Application
 ) : AndroidViewModel(application) {
     val viewModelSoundButtonList: LiveData<List<SoundButton>>
-    val newLiveSoundButton : MutableLiveData<SoundButton> by lazy { MutableLiveData(SoundButton()) }
+
+    private val newSoundButton : NewSoundButton by lazy {NewSoundButton()}
+
     private val _newImageFileName : MutableLiveData<String> = MutableLiveData(newImageFileNameDefaultText)
     val newImageFileName : LiveData<String>
     get() = _newImageFileName
+
     private val _newSoundFileName : MutableLiveData<String> = MutableLiveData(newSoundFileNameDefaultText)
     val newSoundFileName : LiveData<String>
     get() = _newSoundFileName
 
 
 
-    private val context: Context
+    private val applicationContext: Context
         get() = getApplication()
-    private val imagesFolder: File by lazy { getImagesFolder(context) }
+    private val imagesFolder: File by lazy { getImagesFolder(applicationContext) }
 
     init {
         Log.d(TAG, "SoundBoardViewModel init")
@@ -51,25 +55,13 @@ class SoundBoardViewModel(
 
     }
 
-    fun loadImageURI(imageUri: Uri) {
-
-        newLiveSoundButton.value?.apply {
-            imagePath = imageUri.toString()
-        }
-
-        if (newLiveSoundButton.value == null) {
-            newLiveSoundButton.value = SoundButton().apply { imagePath = imageUri.toString()}
-        }
-
-    }
-
 
 
     // TODO: 4/1/2021 complete this stub
     fun copyImageFromUri(uri: Uri) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                context.contentResolver.openInputStream(uri)?.let {
+                applicationContext.contentResolver.openInputStream(uri)?.let {
                     copyImageFromStream(it, imagesFolder,generateFileNameFromURI(uri))
                     Log.d(TAG, "copyImageFromUri: Copied Image")
                 }
@@ -92,25 +84,66 @@ class SoundBoardViewModel(
         }
     }
 
-    var newImageFileUri : Uri? = null
-        private set
-    var newSoundFileUri : Uri? = null
-        private set
 
-   fun filePathNamesAndUrisReset(){
+
+   fun filePathsReset(){
        _newImageFileName.value = newImageFileNameDefaultText
-       newImageFileUri = null
        _newSoundFileName.value = newSoundFileNameDefaultText
-       newSoundFileUri = null
+       newSoundButton.reset()
     }
 
-    fun setNewImageFileNameAndUri(uri: Uri){
-        newImageFileUri = uri
+    fun setNewImageFile(uri: Uri){
+        newSoundButton.newImageFileUri = uri
         _newImageFileName.value = uri.toString()
     }
 
-    fun setNewSoundFileNameAndUri(uri:Uri){
-        newSoundFileUri = uri
+    fun setNewSoundFile(uri:Uri){
+        newSoundButton.newSoundFileUri = uri
         _newSoundFileName.value = uri.toString()
+    }
+
+    fun playSoundFilePreview(context: Context) {
+        newSoundButton.newSoundFileUri?.let { soundUri ->
+            SingletonMediaPlayer.playUri(context,soundUri)
+        }
+    }
+
+
+    private inner class NewSoundButton(){
+        var newImageFileUri: Uri? = null
+        var newSoundFileUri: Uri? = null
+
+
+        fun save() {
+            val newSoundButton = createSoundButton(newImageFileUri, newSoundFileUri)
+            newSoundButton?.let {
+                sbTuplesRepository.addSoundButton(it)
+                this.reset()
+            }
+        }
+
+        fun reset() {
+            newImageFileUri = null
+            newSoundFileUri = null
+        }
+
+        private fun createSoundButton(imageUri: Uri?, soundUri: Uri?) : SoundButton? {
+            //if image is not already in folder
+            //if sound is not already in folder
+            var nullUri = false
+            if(imageUri == null) {
+                Log.d(TAG, "createSoundButton: imageUri is null")
+                nullUri = true
+            }
+            if(soundUri == null){
+                Log.d(TAG, "createSoundButton: soundUri is null")
+                nullUri = true
+            }
+
+            return if (nullUri) null
+            else SoundButton(soundUri.toString(), imageUri.toString())
+
+        }
+
     }
 }
