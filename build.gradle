@@ -2,13 +2,24 @@
 
 buildscript {
     ext{
-        kotlin_version = '1.3.70'
-        fragment_version = '1.2.5'
-        version_coroutine = "1.1.0"
+        version_kotlin = '1.3.70'
+        version_fragment = '1.3.2'
+        version_ktx = '1.2.0'
+        version_constraintLayout = '1.1.3'
+        version_lifecycleExtensions = '2.0.0'
+        version_lifecycleViewModel = '2.0.0'
+        version_coroutine = '1.1.0'
         version_navigation = '2.0.0'
+        version_legacySupport = '1.0.0'
         version_room = '2.2.5'
-        version_work = '2.3.4'
+        //version_work = '2.3.4'
         version_glide = '4.11.0'
+        version_junit = '4.12'
+        version_work = '2.5.0'
+        version_appcompat = '1.1.0'
+        version_espresso = '3.3.0'
+        version_coreTesting = '2.1.0'
+        version_mockk = "1.9.3"
     }
     repositories {
         google()
@@ -17,7 +28,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.0.0'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$version_kotlin"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files

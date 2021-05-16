@@ -1,24 +1,33 @@
 package com.example.soundBoardApp.tools
 
+import android.app.Activity
+import android.app.Application
+import android.app.Service
 import android.content.Context
 import androidx.annotation.IntegerRes
 import com.example.soundBoardApp.database.SBDatabase
+import com.example.soundBoardApp.database.SBDatabaseWorkerFactory
+import com.example.soundBoardApp.database.SBTuplesDatabaseDao
 import com.example.soundBoardApp.database.SBTuplesRepository
 import com.example.soundBoardApp.soundBoard.SoundBoardViewModelFactory
-import com.example.soundBoardApp.soundBoard2.SoundBoard2Fragment
-import com.example.soundBoardApp.soundBoard2.SoundBoard2ViewModelFactory
 
 object DependencyInjectors {
+    private fun getSBTuplesDao(context: Context): SBTuplesDatabaseDao {
+        return SBDatabase.getInstance(context.applicationContext).sBTuplesDatabaseDao()
+    }
     private fun getSBTuplesRepository(context: Context): SBTuplesRepository{
         return  SBTuplesRepository.getInstance(
-            SBDatabase.getInstance(context).sBTuplesDatabaseDao
+            getSBTuplesDao(context)
         )
     }
-    fun provideSoundBoardViewModelFactory(context: Context, numSoundButtons: Int): SoundBoardViewModelFactory {
-        return SoundBoardViewModelFactory(getSBTuplesRepository(context), numSoundButtons)
+
+    fun provideSoundBoardViewModelFactory(context: Context, numSoundButtons: Int, application: Application): SoundBoardViewModelFactory {
+        return SoundBoardViewModelFactory(getSBTuplesRepository(context), numSoundButtons, application)
     }
 
-    fun provideSoundBoard2ViewModelFactory(context: Context, numSoundButtons: Int):SoundBoard2ViewModelFactory{
-        return SoundBoard2ViewModelFactory(getSBTuplesRepository(context), numSoundButtons)
+    fun provideSBDatabaseWorkerFactory(context: Context): SBDatabaseWorkerFactory {
+        return SBDatabaseWorkerFactory(getSBTuplesDao(context))
     }
+
+
 }

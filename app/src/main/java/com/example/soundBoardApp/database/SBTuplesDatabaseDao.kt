@@ -1,9 +1,9 @@
 package com.example.soundBoardApp.database
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 
 /**
@@ -13,8 +13,10 @@ import androidx.room.Query
 @Dao
 interface SBTuplesDatabaseDao {
 
-
-    @Insert
+    /**
+    * conflict replace strategy, so that worker doesn't duplicate entries in test
+     */
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(databaseTuple: SBDatabaseTuple)
 
     /**
@@ -24,5 +26,6 @@ interface SBTuplesDatabaseDao {
     @Query("SELECT * FROM SoundBoard_Image_Sound_Tuples_Table ORDER BY tupleID ASC")
     fun getAllTuples(): LiveData<List<SBDatabaseTuple>>
 
-
+    @Query("DELETE FROM SoundBoard_Image_Sound_Tuples_Table")
+    fun deleteAll()
 }

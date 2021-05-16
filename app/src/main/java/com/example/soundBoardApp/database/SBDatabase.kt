@@ -17,25 +17,23 @@
 package com.example.soundBoardApp.database
 
 import android.content.Context
+import androidx.databinding.adapters.Converters
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 
 const val DATABASE_NAME = "soundBoard_tuples_database"
 
-@Database(entities = [SBDatabaseTuple::class], version = 1, exportSchema = false)
+@Database(entities = [SBDatabaseTuple::class], version = 2, exportSchema = false)
+//@TypeConverters(Converters::class) we don't have type converters, if we did they would be created by us
 abstract class SBDatabase : RoomDatabase() {
     //connect database to DAO
-    abstract val sBTuplesDatabaseDao: SBTuplesDatabaseDao
-    /**
-     * Define a companion object, this allows us to add functions on the SleepDatabase class.
-     *
-     * For example, clients can call `SleepDatabase.getInstance(context)` to instantiate
-     * a new SleepDatabase.
-     */
+    abstract fun sBTuplesDatabaseDao(): SBTuplesDatabaseDao
+
     companion object {
         /**
          * INSTANCE will keep a reference to any database returned via getInstance.
@@ -77,9 +75,9 @@ abstract class SBDatabase : RoomDatabase() {
                 // If instance is `null` make a new database instance.
                 if (instance == null) {
 
-                    instance = buildDatabase(context)
+                    instance = buildDatabase(context).also { INSTANCE = it }
                     // Assign INSTANCE to the newly created database.
-                    INSTANCE = instance
+                    //INSTANCE = instance
                 }
                 // Return instance; smart cast to be non-null.
                 return instance
@@ -88,11 +86,11 @@ abstract class SBDatabase : RoomDatabase() {
 
         private fun buildDatabase(context: Context): SBDatabase {
             return Room.databaseBuilder(
-                context.applicationContext,
+                context,
                 SBDatabase::class.java,
                 DATABASE_NAME
             )
-                .addCallback(object : Callback() {
+                .addCallback(object : RoomDatabase.Callback() {
                     //this is the Call Back that gets called on creation
                     override fun onCreate(db: SupportSQLiteDatabase) {
                         super.onCreate(db)

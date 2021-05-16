@@ -1,5 +1,6 @@
 package com.example.soundBoardApp.soundBoard
 
+import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.soundBoardApp.database.SBTuplesRepository
@@ -11,11 +12,12 @@ import com.example.soundBoardApp.database.SBTuplesRepository
 
 class SoundBoardViewModelFactory(
     private val dataSource: SBTuplesRepository,
-    private val numSoundButtons: Int
+    private val numSoundButtons: Int,
+    private val application: Application
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(SoundBoardViewModel::class.java)) {
-            return SoundBoardViewModel(dataSource, numSoundButtons) as T
+            return SoundBoardViewModel(dataSource, numSoundButtons, application) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

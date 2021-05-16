@@ -23,4 +23,16 @@
     <string name="sound_4">Sound 4</string>
     <string name="sound_9">Sound 9</string>
     <string name="image_depicting_a_sound">image depicting a sound</string>
+    <string name="FAB">FAB to add new soundButton</string>
+    <string name="img_file_text_field">image file path</string>
+    <string name="sound_file_path_text">sound file path</string>
+    <string name="image_text_box_description">the file path for the image selected</string>
+    <string name="image_text_box_hint">your image file</string>
+    <string name="sound_text_box_hint">your sound file</string>
+    <string name="image_for_button_description">image for soundButton being created</string>
+    <string name="playSoundButton_description">plays sound selected for soundButton being created</string>
+    <string name="editSoundPathButton_description">edit the file path for the sound selected</string>
+    <string name="editImagePathButton_description">edit the file path for the image selected</string>
+    <string name="cancelButton_text">Cancel</string>
+    <string name="saveButton_text">Save</string>
 </resources>
