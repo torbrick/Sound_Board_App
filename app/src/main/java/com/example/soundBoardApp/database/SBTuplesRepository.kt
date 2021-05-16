@@ -20,7 +20,9 @@ class SBTuplesRepository private constructor(private val sBTuplesDao: SBTuplesDa
      */
     fun getAllSoundButtons() = Transformations.map(sBTuplesDao.getAllTuples()){it.asDomainModel()}.also { soundButtons = it }
 
-
+    fun addSoundButton(soundButton: SoundButton){
+        sBTuplesDao.insert( SBDatabaseTuple.asStorageModel(soundButton))
+    }
 
 
     companion object {

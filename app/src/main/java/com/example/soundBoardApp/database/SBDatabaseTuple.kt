@@ -31,7 +31,18 @@ data class SBDatabaseTuple(
     @ColumnInfo(name = "tupleID")
     var tupleID: Long = 0L
 
-)
+){
+    companion object {
+        fun asStorageModel(soundButton: SoundButton): SBDatabaseTuple {
+            return SBDatabaseTuple(
+                soundPath = soundButton.soundPath,
+                iconPath = soundButton.imagePath
+            )
+        }
+    }
+}
+
+
 
 // TODO: 9/1/2020 go over and explain map vs switchMap
 fun List<SBDatabaseTuple>.asDomainModel(): List<SoundButton>{
@@ -49,6 +60,7 @@ fun SBDatabaseTuple.asDomainModel(): SoundButton{
             imagePath = iconPath
         )
 }
+
 
 fun SBDatabaseTuple.targetsSame(compareTuple: SBDatabaseTuple): Boolean{
     return (this.iconPath == compareTuple.iconPath) && (this.soundPath == compareTuple.soundPath)
